@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: spring8-inventory
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: server
+    buildCommand: npm install && cd ../client && npm install && npm run build && cd ../server
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        value: https://emzivuvgcfvzepfihqts.supabase.co
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVteml2dXZnY2Z2emVwZmlocXRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4OTMwMDcsImV4cCI6MjA3NzQ2OTAwN30.2aMyWxJwUnxLq5Hnbmz3yowF5-NmJ-A5SEaKndiSP9E
+        sync: false
+      - key: REACT_APP_API_KEY
+        value: AIzaSyCpix7xLx4HBi19x6BkjN-OUWDtHPTcsNY
+        sync: false
+    healthCheckPath: /api/health
