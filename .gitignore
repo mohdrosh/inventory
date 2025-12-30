@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Production build
+client/build/
+server/build/
+dist/
+
+# Local data (not needed with Supabase)
+server/data/
+server/uploads/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+server/.env
+client/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.cache/
+
+# ====================
+node_modules/
+client/build/
+server/uploads/
+.env
+.env.local
+.env.production
+.DS_Store
+*.log
+npm-debug.log*
+package-lock.json
