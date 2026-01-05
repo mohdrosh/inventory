@@ -49,6 +49,7 @@ app.use(cors({
            "https://spring8inventorymanagement.vercel.app"],
   credentials: true
 }));
+app.options("*", cors());
 
 // -------- Frontend (React Build) --------
 const clientBuildPath = path.join(__dirname, "../client/build");
@@ -1244,13 +1245,25 @@ app.post("/api/notifications/read-all", async (req, res) => {
 });
 
 // Serve React app for non-API routes
-app.use((req, res) => {
+/*app.use((req, res) => {
   if (!req.path.startsWith('/api')) {
     if (require("fs").existsSync(clientBuildPath)) {
       res.sendFile(path.join(clientBuildPath, "index.html"));
     } else {
       res.status(404).json({ error: "Frontend not built yet" });
     }
+  } else {
+    res.status(404).json({ error: "API endpoint not found" });
+  }
+});*/
+
+// static frontend
+app.use(express.static(clientBuildPath));
+
+// SPA fallback (GET ONLY)
+app.get("*", (req, res) => {
+  if (!req.path.startsWith("/api")) {
+    res.sendFile(path.join(clientBuildPath, "index.html"));
   } else {
     res.status(404).json({ error: "API endpoint not found" });
   }
