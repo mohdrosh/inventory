@@ -46,7 +46,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 app.use(express.json());
 app.use(cors({
   origin: ["http://localhost:3000",
-           "http://spring8inventorymanagement.vercel.app"],
+           "https://spring8inventorymanagement.vercel.app"],
   credentials: true
 }));
 
