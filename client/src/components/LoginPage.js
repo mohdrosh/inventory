@@ -143,10 +143,10 @@ export default function LoginPage() {
             <div className="flex items-center justify-between text-xs">
               <span className="text-slate-500 font-medium">Demo Access:</span>
               <div className="flex gap-2">
-                <code className="bg-white border border-slate-200 px-2 py-1 rounded text-indigo-600 font-bold uppercase tracking-wider">
+                <code className="bg-white border border-slate-200 px-2 py-1 rounded text-indigo-600 font-bold tracking-wider">
                   {staffCredentials.demoUser}
                 </code>
-                <code className="bg-white border border-slate-200 px-2 py-1 rounded text-indigo-600 font-bold uppercase tracking-wider">
+                <code className="bg-white border border-slate-200 px-2 py-1 rounded text-indigo-600 font-bold tracking-wider">
                   {staffCredentials.demoPass}
                 </code>
               </div>
