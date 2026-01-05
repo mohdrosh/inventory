@@ -35,6 +35,41 @@ import {
 } from "lucide-react";
 import AIAssistant from './Chatbot';
 import { useConfirmDialog } from "./useConfirmDialog";
+// Convert half-width katakana to full-width
+function toFullWidth(str) {
+  if (!str) return str;
+  
+  const halfToFull = {
+    'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
+    'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',
+    'ﾀﾞ': 'ダ', 'ﾁﾞ': 'ヂ', 'ﾂﾞ': 'ヅ', 'ﾃﾞ': 'デ', 'ﾄﾞ': 'ド',
+    'ﾊﾞ': 'バ', 'ﾋﾞ': 'ビ', 'ﾌﾞ': 'ブ', 'ﾍﾞ': 'ベ', 'ﾎﾞ': 'ボ',
+    'ﾊﾟ': 'パ', 'ﾋﾟ': 'ピ', 'ﾌﾟ': 'プ', 'ﾍﾟ': 'ペ', 'ﾎﾟ': 'ポ',
+    'ｳﾞ': 'ヴ', 'ﾜﾞ': 'ヷ', 'ｦﾞ': 'ヺ',
+    'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
+    'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
+    'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
+    'ﾀ': 'タ', 'ﾁ': 'チ', 'ﾂ': 'ツ', 'ﾃ': 'テ', 'ﾄ': 'ト',
+    'ﾅ': 'ナ', 'ﾆ': 'ニ', 'ﾇ': 'ヌ', 'ﾈ': 'ネ', 'ﾉ': 'ノ',
+    'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
+    'ﾏ': 'マ', 'ﾐ': 'ミ', 'ﾑ': 'ム', 'ﾒ': 'メ', 'ﾓ': 'モ',
+    'ﾔ': 'ヤ', 'ﾕ': 'ユ', 'ﾖ': 'ヨ',
+    'ﾗ': 'ラ', 'ﾘ': 'リ', 'ﾙ': 'ル', 'ﾚ': 'レ', 'ﾛ': 'ロ',
+    'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
+    'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
+    'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
+    '｡': '。', '｢': '「', '｣': '」', '､': '、', '･': '・',
+    'ｰ': 'ー', 'ﾞ': '゛', 'ﾟ': '゜'
+  };
+
+  let result = str;
+  // First replace two-character combinations (dakuten/handakuten)
+  Object.keys(halfToFull).forEach(half => {
+    result = result.split(half).join(halfToFull[half]);
+  });
+  
+  return result;
+}
 
 export default function BuildingView() {
   const navigate = useNavigate();
@@ -608,7 +643,7 @@ function AssetCard({ asset, onClick }) {
         />
       </div>
       <div className="p-2">
-        <h4 className="font-bold text-gray-900 text-base mb-0.5 truncate">{asset.name}</h4>
+        <h4 className="font-bold text-gray-900 text-base mb-0.5 truncate">{toFullWidth(asset.name)}</h4>
         <p className="text-xs text-gray-500 font-mono mb-1 truncate">ID: {String(asset.id)}</p>
         <div className="flex items-center justify-between text-xs text-gray-600">
           <span className="flex items-center gap-0.5">
@@ -644,7 +679,7 @@ function AssetListItem({ asset, onClick }) {
       </div>
       <div className="flex-1 min-w-0 flex items-center gap-3">
         <div className="min-w-0 flex-1">
-          <h4 className="font-semibold text-gray-900 text-base truncate">{asset.name}</h4>
+          <h4 className="font-semibold text-gray-900 text-base truncate">{toFullWidth(asset.name)}</h4>
           <p className="text-xs text-gray-500 font-mono truncate">ID: {String(asset.id)}</p>
         </div>
         <div className="hidden sm:flex items-center gap-3 text-sm text-gray-600">
@@ -829,31 +864,48 @@ function CompactAssetModal({ asset, onClose, onUpdate, showNotification, navigat
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-3 md:p-4">
-          {/* Asset Number - Featured at Top */}
-          <div className="bg-indigo-50 rounded-lg p-2 md:p-3 border-2 border-indigo-300 mb-3 shadow-sm">
-            <div className="flex items-center gap-2 mb-1">
-              <Barcode className="w-4 h-4 md:w-5 md:h-5 text-indigo-600" />
-              <p className="text-sm md:text-base font-bold text-indigo-700 uppercase tracking-wide">資産番号 (Asset Number)</p>
-            </div>
-            <div className="flex items-center justify-between gap-2">
-              <p className="text-xl md:text-2xl font-bold text-gray-900 font-mono">{asset.id}</p>
-              <button
-                type="button"
-                onClick={handleCopyAssetNumber}
-                className="p-2 rounded-lg bg-white hover:bg-indigo-100 border border-indigo-300 text-indigo-700 transition-all flex-shrink-0"
-                title="Copy asset number"
-                aria-label="Copy asset number"
-              >
-                <Copy className="w-5 h-5" />
-              </button>
+          
+
+          {/* Asset Number with QR Code - Full Width at Top */}
+          <div className="bg-indigo-50 rounded-lg p-2 md:p-3 border-2 border-indigo-300 mb-2 shadow-sm">
+            <div className="flex items-start gap-2">
+              {/* Left: Asset Number */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <Barcode className="w-4 h-4 md:w-5 md:h-5 text-indigo-600" />
+                  <p className="text-sm md:text-base font-bold text-indigo-700 uppercase tracking-wide">資産番号　（ＡＳＳＥＴ　ＮＵＭＢＥＲ）</p>
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-xl md:text-2xl font-bold text-gray-900 font-mono break-all">{asset.id}</p>
+                  <button
+                    type="button"
+                    onClick={handleCopyAssetNumber}
+                    className="p-2 rounded-lg bg-white hover:bg-indigo-100 border border-indigo-300 text-indigo-700 transition-all flex-shrink-0"
+                    title="Copy asset number"
+                    aria-label="Copy asset number"
+                  >
+                    <Copy className="w-5 h-5" />
+                  </button>
+                </div>
+                <p className="text-xs md:text-sm text-gray-600 mt-1">ＱＲコードをスキャンして資産を表示</p>
+              </div>
+              
+              {/* Right: QR Code */}
+              <div className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-lg border-2 border-gray-300 flex items-center justify-center flex-shrink-0 shadow-sm">
+                {asset.qr_code_url ? (
+                  <img src={asset.qr_code_url} alt="QR" className="w-full h-full object-contain p-1" />
+                ) : (
+                  <Barcode className="w-10 h-10 md:w-12 md:h-12 text-gray-400" />
+                )}
+              </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-3">
-            {/* LEFT: Photos Only */}
+            {/* LEFT: Photo Only */}
             <div className="flex flex-col gap-1.5 md:gap-2">
               {/* Gallery */}
-              <div className="flex gap-2 h-28 md:h-36 lg:h-44">
+              <div className="flex gap-2 h-48 md:h-56 lg:h-64">
                 {displayImages.length > 1 && (
                   <div className="flex flex-col gap-1 md:gap-2 w-10 md:w-12">
                     {displayImages.map((img, idx) => (
@@ -961,6 +1013,13 @@ function CompactAssetModal({ asset, onClose, onUpdate, showNotification, navigat
                 </div>
               </div> */}
 
+
+            </div>
+
+            {/* RIGHT: Information */}
+            <div className="flex flex-col gap-1.5 md:gap-2">
+
+              {/* 1. Management Location */}
               <div className="bg-orange-50 rounded-lg p-1.5 md:p-2 border border-orange-200">
                 <div className="flex items-center gap-1 mb-0.5">
                   <Building2 className="w-3 h-3 text-orange-600" />
@@ -969,8 +1028,7 @@ function CompactAssetModal({ asset, onClose, onUpdate, showNotification, navigat
                 <p className="text-[10px] md:text-xs text-gray-700">{asset.management_location || "-"}</p>
               </div>
 
-
-
+              {/* 2. Product Name */}
               <div className="bg-green-50 rounded-lg p-1.5 md:p-2 border border-green-200">
                 <div className="flex items-center gap-1 mb-0.5">
                   <FileText className="w-3 h-3 text-green-600" />
@@ -979,36 +1037,7 @@ function CompactAssetModal({ asset, onClose, onUpdate, showNotification, navigat
                 <p className="text-sm md:text-base font-bold text-gray-900 leading-tight">{asset.name || "-"}</p>
               </div>
 
-              {/* QR Code - Below Images */}
-              <div className="bg-gray-50 rounded-lg p-2 md:p-3 border-2 border-gray-300">
-                <div className="flex items-center gap-2 mb-2">
-                  <Barcode className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
-                  <p className="text-sm md:text-base font-bold text-gray-700 uppercase">QRコード (QR Code)</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-lg border-2 border-gray-300 flex items-center justify-center flex-shrink-0 shadow-sm">
-                    {asset.qr_code_url ? (
-                      <img src={asset.qr_code_url} alt="QR" className="w-full h-full object-contain p-1" />
-                    ) : (
-                      <Barcode className="w-10 h-10 md:w-12 md:h-12 text-gray-400" />
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs md:text-sm text-gray-500 mb-1">Scan to view</p>
-                    <p className="text-sm md:text-base text-gray-700 font-mono break-all">{asset.qr_code || asset.id}</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* RIGHT: Information */}
-            <div className="flex flex-col gap-1.5 md:gap-2">
-
-
-
-
-              {/* 4. User */}
+              {/* 3. User */}
               <div className="bg-purple-50 rounded-lg p-1.5 md:p-2 border border-purple-200">
                 <div className="flex items-center gap-1 mb-0.5">
                   <User className="w-3 h-3 text-purple-600" />
