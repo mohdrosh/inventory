@@ -1,6 +1,8 @@
 // server/index.js - PRODUCTION READY with Supabase Assets
 // TYPE FIELD REMOVED FROM ALL API RESPONSES + SINGLE ASSET ENDPOINT ADDED
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const express = require("express");
 const cors = require("cors");
