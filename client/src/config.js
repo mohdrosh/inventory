@@ -4,7 +4,7 @@ const isDevelopment = window.location.hostname === 'localhost' ||
 
 export const API_BASE_URL = isDevelopment 
   ? 'http://localhost:5000/api'
-  : "https://inventory-management-system-ixjy.onrender.com/api";
+  : "https://spring8-inventory-management.onrender.com";
 
 export const config = {
   apiUrl: API_BASE_URL,
