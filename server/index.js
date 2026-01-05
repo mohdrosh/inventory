@@ -44,9 +44,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 app.use(cors({
   origin: ["http://localhost:3000",
            "https://spring8inventorymanagement.vercel.app"],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
 app.use(express.json());
+app.options('*', cors()); // enable preflight for all routes
 
 // -------- Frontend (React Build) --------
 const clientBuildPath = path.join(__dirname, "../client/build");
