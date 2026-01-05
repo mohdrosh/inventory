@@ -41,7 +41,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
   }
 })();
 
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000",
+           "https://spring8-inventory-management.vercel.app"],
+  credentials: true
+}));
 app.use(express.json());
 
 // -------- Frontend (React Build) --------

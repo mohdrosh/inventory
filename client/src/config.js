@@ -4,9 +4,9 @@ const isDevelopment = window.location.hostname === 'localhost' ||
 
 export const API_BASE_URL = isDevelopment 
   ? 'http://localhost:5000/api'
-  : '/api';
+  : "https://inventory-management-system-ixjy.onrender.com/api";
 
 export const config = {
   apiUrl: API_BASE_URL,
   isDevelopment,
-};
+}; 
