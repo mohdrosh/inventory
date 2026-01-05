@@ -43,12 +43,12 @@ const supabase = createClient(supabaseUrl, supabaseKey);
   }
 })();
 
+app.use(express.json());
 app.use(cors({
   origin: ["http://localhost:3000",
            "http://spring8inventorymanagement.vercel.app"],
   credentials: true
 }));
-app.use(express.json());
 
 // -------- Frontend (React Build) --------
 const clientBuildPath = path.join(__dirname, "../client/build");
@@ -1139,19 +1139,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Serve React app for non-API routes
-app.use((req, res) => {
-  if (!req.path.startsWith('/api')) {
-    if (require("fs").existsSync(clientBuildPath)) {
-      res.sendFile(path.join(clientBuildPath, "index.html"));
-    } else {
-      res.status(404).json({ error: "Frontend not built yet" });
-    }
-  } else {
-    res.status(404).json({ error: "API endpoint not found" });
-  }
-});
-
 // ============================================
 // USER NOTIFICATIONS ROUTES
 // ============================================
@@ -1253,6 +1240,19 @@ app.post("/api/notifications/read-all", async (req, res) => {
   } catch (err) {
     console.error("Error in mark all as read:", err);
     res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Serve React app for non-API routes
+app.use((req, res) => {
+  if (!req.path.startsWith('/api')) {
+    if (require("fs").existsSync(clientBuildPath)) {
+      res.sendFile(path.join(clientBuildPath, "index.html"));
+    } else {
+      res.status(404).json({ error: "Frontend not built yet" });
+    }
+  } else {
+    res.status(404).json({ error: "API endpoint not found" });
   }
 });
 
