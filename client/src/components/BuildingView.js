@@ -40,12 +40,16 @@ function toFullWidth(str) {
   if (!str) return str;
   
   const halfToFull = {
+    // Two-character combinations FIRST (dakuten/handakuten)
     'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
     'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',
     'ﾀﾞ': 'ダ', 'ﾁﾞ': 'ヂ', 'ﾂﾞ': 'ヅ', 'ﾃﾞ': 'デ', 'ﾄﾞ': 'ド',
     'ﾊﾞ': 'バ', 'ﾋﾞ': 'ビ', 'ﾌﾞ': 'ブ', 'ﾍﾞ': 'ベ', 'ﾎﾞ': 'ボ',
     'ﾊﾟ': 'パ', 'ﾋﾟ': 'ピ', 'ﾌﾟ': 'プ', 'ﾍﾟ': 'ペ', 'ﾎﾟ': 'ポ',
     'ｳﾞ': 'ヴ', 'ﾜﾞ': 'ヷ', 'ｦﾞ': 'ヺ',
+  };
+  
+  const singleHalfToFull = {
     'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
     'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
     'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
@@ -63,13 +67,20 @@ function toFullWidth(str) {
   };
 
   let result = str;
+  
   // First replace two-character combinations (dakuten/handakuten)
   Object.keys(halfToFull).forEach(half => {
     result = result.split(half).join(halfToFull[half]);
   });
   
+  // Then replace single characters
+  Object.keys(singleHalfToFull).forEach(half => {
+    result = result.split(half).join(singleHalfToFull[half]);
+  });
+  
   return result;
 }
+
 
 export default function BuildingView() {
   const navigate = useNavigate();
@@ -281,7 +292,7 @@ export default function BuildingView() {
         <div className="text-center">
           <Loader2 className="w-12 h-12 sm:w-16 sm:h-16 text-indigo-600 animate-spin mx-auto mb-4" />
           <p className="text-gray-700 text-base sm:text-lg font-semibold">Loading assets...</p>
-          <p className="text-gray-500 text-xs sm:text-sm mt-2">{decodeURIComponent(id)}</p>
+          <p className="text-gray-500 text-xs sm:text-sm mt-2">{toFullWidth(decodeURIComponent(id))}</p>
         </div>
       </div>
     );
@@ -294,7 +305,7 @@ export default function BuildingView() {
             <AlertCircle className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
           </div>
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">No Assets Found</h2>
-          <p className="text-sm sm:text-base text-gray-600 mb-6">The building "{decodeURIComponent(id)}" has no assets.</p>
+          <p className="text-sm sm:text-base text-gray-600 mb-6">The building "{toFullWidth(decodeURIComponent(id))}" has no assets.</p>
           <Link
             to="/dashboard"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl text-sm sm:text-base"
@@ -433,7 +444,7 @@ export default function BuildingView() {
             Back to Dashboard
           </Link>
           <div className="pb-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">{decodeURIComponent(id)}</h2>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">{toFullWidth(decodeURIComponent(id))}</h2>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Package className="w-4 h-4 text-indigo-500" />
               <span className="font-semibold">{assets.length}</span> total assets
@@ -1029,12 +1040,14 @@ function CompactAssetModal({ asset, onClose, onUpdate, showNotification, navigat
               </div>
 
               {/* 2. Product Name */}
-              <div className="bg-green-50 rounded-lg p-1.5 md:p-2 border border-green-200">
-                <div className="flex items-center gap-1 mb-0.5">
+              <div className="bg-green-50 rounded-lg p-1.5 border border-green-200">
+                <div className="flex items-center gap-1 mb-1">
                   <FileText className="w-3 h-3 text-green-600" />
-                  <p className="text-[9px] md:text-[10px] font-semibold text-green-700 uppercase">品名 (Product Name)</p>
+                  <p className="text-[9px] md:text-[10px] font-semibold text-green-700 uppercase leading-none">品名 (Product Name)</p>
                 </div>
-                <p className="text-sm md:text-base font-bold text-gray-900 leading-tight">{asset.name || "-"}</p>
+                <p className="text-sm md:text-base font-bold text-gray-900 leading-none">{toFullWidth(asset.name) || "-"}</p>
+
+client/src/pages/AssetDetailsPage.js
               </div>
 
               {/* 3. User */}

@@ -39,6 +39,51 @@ import {
   MessageSquare,
   RefreshCw,
 } from "lucide-react";
+// Convert half-width katakana to full-width
+function toFullWidth(str) {
+  if (!str) return str;
+  
+  const halfToFull = {
+    // Two-character combinations FIRST (dakuten/handakuten)
+    'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
+    'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',
+    'ﾀﾞ': 'ダ', 'ﾁﾞ': 'ヂ', 'ﾂﾞ': 'ヅ', 'ﾃﾞ': 'デ', 'ﾄﾞ': 'ド',
+    'ﾊﾞ': 'バ', 'ﾋﾞ': 'ビ', 'ﾌﾞ': 'ブ', 'ﾍﾞ': 'ベ', 'ﾎﾞ': 'ボ',
+    'ﾊﾟ': 'パ', 'ﾋﾟ': 'ピ', 'ﾌﾟ': 'プ', 'ﾍﾟ': 'ペ', 'ﾎﾟ': 'ポ',
+    'ｳﾞ': 'ヴ', 'ﾜﾞ': 'ヷ', 'ｦﾞ': 'ヺ',
+  };
+  
+  const singleHalfToFull = {
+    'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
+    'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
+    'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
+    'ﾀ': 'タ', 'ﾁ': 'チ', 'ﾂ': 'ツ', 'ﾃ': 'テ', 'ﾄ': 'ト',
+    'ﾅ': 'ナ', 'ﾆ': 'ニ', 'ﾇ': 'ヌ', 'ﾈ': 'ネ', 'ﾉ': 'ノ',
+    'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
+    'ﾏ': 'マ', 'ﾐ': 'ミ', 'ﾑ': 'ム', 'ﾒ': 'メ', 'ﾓ': 'モ',
+    'ﾔ': 'ヤ', 'ﾕ': 'ユ', 'ﾖ': 'ヨ',
+    'ﾗ': 'ラ', 'ﾘ': 'リ', 'ﾙ': 'ル', 'ﾚ': 'レ', 'ﾛ': 'ロ',
+    'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
+    'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
+    'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
+    '｡': '。', '｢': '「', '｣': '」', '､': '、', '･': '・',
+    'ｰ': 'ー', 'ﾞ': '゛', 'ﾟ': '゜'
+  };
+
+  let result = str;
+  
+  // First replace two-character combinations (dakuten/handakuten)
+  Object.keys(halfToFull).forEach(half => {
+    result = result.split(half).join(halfToFull[half]);
+  });
+  
+  // Then replace single characters
+  Object.keys(singleHalfToFull).forEach(half => {
+    result = result.split(half).join(singleHalfToFull[half]);
+  });
+  
+  return result;
+}
 
 export default function AssetDetailsPage() {
   const { assetId } = useParams();
@@ -461,7 +506,7 @@ export default function AssetDetailsPage() {
     const printContent = `
       <html>
       <head>
-        <title>Asset: ${asset.name}</title>
+        <title>Asset: ${toFullWidth(asset.name)}</title>
         <style>
           * { box-sizing: border-box; }
           body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: 0 auto; color: #333; font-size: 12px; }
@@ -530,7 +575,7 @@ export default function AssetDetailsPage() {
             </div>
             <div class="section">
               <div class="label">品名 (Product Name)</div>
-              <div class="value" style="font-size: 14px; font-weight: bold;">${asset.name || 'N/A'}</div>
+              <div class="value" style="font-size: 14px; font-weight: bold;">${toFullWidth(asset.name) || 'N/A'}</div>
             </div>
             <div class="section">
               <div class="label">管理箇所 (Management Location)</div>
@@ -588,7 +633,7 @@ export default function AssetDetailsPage() {
           <div class="grid">
             <div class="section">
               <div class="label">建屋 (Building)</div>
-              <div class="value">${asset.building || 'N/A'}</div>
+              <div class="value">${toFullWidth(asset.building) || 'N/A'}</div>
             </div>
             <div class="section">
               <div class="label">設置場所 (Installation Location)</div>
@@ -740,14 +785,14 @@ export default function AssetDetailsPage() {
       assetNumber: String(asset.id),
       invoiceNumber: asset.invoice_number || "To be configured",
       managementLocation: asset.management_location || "To be configured",
-      productName: asset.name,
+      productName: toFullWidth(asset.name),
       companyName: asset.company_name || "To be configured",
       qrCode: asset.qr_code || "To be generated",
       userName: asset.user || "To be configured",
       actualUserName: asset.actual_user || "To be configured",
-      installationLocation: asset.installation_location || `${asset.building} ${asset.floor} Room ${asset.room}`,
+      installationLocation: asset.installation_location || `${toFullWidth(asset.building)} ${asset.floor} Room ${asset.room}`,
       parentAssetId: asset.parent_asset_id || "None",
-      building: asset.building,
+      building: toFullWidth(asset.building),
       floor: asset.floor,
       room: asset.room,
       status: asset.status,
@@ -1434,7 +1479,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
               <div className="h-8 w-px bg-gray-300"></div>
               <div>
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Asset Details</h1>
-                <p className="text-sm text-gray-600 mt-0.5">{asset.building}</p>
+                <p className="text-sm text-gray-600 mt-0.5">{toFullWidth(asset.building)}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -1609,7 +1654,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                     >
                       <img
                         src={displayImages[selectedImageIndex]}
-                        alt={asset.name}
+                        alt={toFullWidth(asset.name)}
                         className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                         onError={(e) => e.target.src = placeholderImage}
                       />
@@ -1641,7 +1686,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                   <div className="space-y-1 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Building:</span>
-                      <span className="font-semibold text-gray-900">{asset.building || ''}</span>
+                      <span className="font-semibold text-gray-900">{toFullWidth(asset.building) || ''}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Floor:</span>
@@ -1790,7 +1835,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                             className="w-full text-sm font-semibold border border-gray-300 rounded px-1 py-0.5"
                           />
                         ) : (
-                          <p className="text-sm font-semibold text-gray-900">{asset.name || ''}</p>
+                          <p className="text-sm font-semibold text-gray-900">{toFullWidth(asset.name) || ''}</p>
                         )}
                       </div>
 
@@ -1820,7 +1865,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                             className="w-full text-sm font-semibold border border-gray-300 rounded px-1 py-0.5"
                           />
                         ) : (
-                          <p className="text-sm font-semibold text-gray-900">{asset.building || ''}</p>
+                          <p className="text-sm font-semibold text-gray-900">{toFullWidth(asset.building) || ''}</p>
                         )}
                       </div>
 
@@ -1906,7 +1951,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                             className="w-full text-sm font-semibold border border-gray-300 rounded px-1 py-0.5"
                           />
                         ) : (
-                          <p className="text-sm font-semibold text-gray-900">{asset.building || ''}</p>
+                          <p className="text-sm font-semibold text-gray-900">{toFullWidth(asset.building) || ''}</p>
                         )}
                       </div>
 
