@@ -291,7 +291,7 @@ export default function BuildingView() {
       <div className="flex items-center justify-center h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4">
         <div className="text-center">
           <Loader2 className="w-12 h-12 sm:w-16 sm:h-16 text-indigo-600 animate-spin mx-auto mb-4" />
-          <p className="text-gray-700 text-base sm:text-lg font-semibold">Loading assets...</p>
+          <p className="text-gray-700 text-base sm:text-lg font-semibold">Loading assets アセットのロード...</p>
           <p className="text-gray-500 text-xs sm:text-sm mt-2">{toFullWidth(decodeURIComponent(id))}</p>
         </div>
       </div>
@@ -304,14 +304,14 @@ export default function BuildingView() {
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <AlertCircle className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">No Assets Found</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">No Assets Found 資産が見つかりません</h2>
           <p className="text-sm sm:text-base text-gray-600 mb-6">The building "{toFullWidth(decodeURIComponent(id))}" has no assets.</p>
           <Link
             to="/dashboard"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-            Return to Dashboard
+            Return to Dashboard ダッシュボードに戻る
           </Link>
         </div>
       </div>
@@ -365,26 +365,26 @@ export default function BuildingView() {
             >
               <div className="p-6 space-y-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-bold text-gray-800">Navigation</h2>
+                  <h2 className="text-lg font-bold text-gray-800">Navigation ナビゲーション</h2>
                   <button onClick={() => setMobileSidebarOpen(false)} className="p-2 hover:bg-gray-100 rounded-xl transition-all">
                     <X className="w-5 h-5" />
                   </button>
                 </div>
                 <Link to="/dashboard" className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-semibold group" onClick={() => setMobileSidebarOpen(false)}>
                   <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                  Back to Dashboard
+                  Back to Dashboard ダッシュボードに戻る
                 </Link>
                 <div className="pb-6 border-b border-gray-200">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{decodeURIComponent(id)}</h3>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Package className="w-4 h-4 text-indigo-500" />
-                    <span className="font-semibold">{assets.length}</span> total assets
+                    <span className="font-semibold">{assets.length}</span> total assets 総資産
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-sm font-semibold text-gray-700">FLOORS</h4>
-                    {selectedFloor && <button onClick={() => { setSelectedFloor(""); setSelectedRoom(""); }} className="text-xs text-indigo-600">Clear</button>}
+                    <h4 className="text-sm font-semibold text-gray-700">FLOORS フロア</h4>
+                    {selectedFloor && <button onClick={() => { setSelectedFloor(""); setSelectedRoom(""); }} className="text-xs text-indigo-600">Clear クリア</button>}
                   </div>
                   <div className="space-y-2">
                     {floors.map((floor) => (
@@ -407,8 +407,8 @@ export default function BuildingView() {
                 {rooms.length > 0 && (
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="text-sm font-semibold text-gray-700">ROOMS</h4>
-                      {selectedRoom && <button onClick={() => setSelectedRoom("")} className="text-xs text-indigo-600">Clear</button>}
+                      <h4 className="text-sm font-semibold text-gray-700">ROOMS 部屋</h4>
+                      {selectedRoom && <button onClick={() => setSelectedRoom("")} className="text-xs text-indigo-600">Clear クリア</button>}
                     </div>
                     <div className="space-y-2">
                       {rooms.map((room) => (
@@ -419,7 +419,7 @@ export default function BuildingView() {
                             }`}
                         >
                           <div className="flex justify-between">
-                            <span>Room {room}</span>
+                            <span>Room 部屋{room}</span>
                             <span className={`text-xs px-2 py-1 rounded-full ${selectedRoom === room ? "bg-white/20 text-white" : "bg-gray-200 text-gray-700"}`}>
                               {roomCounts[room]}
                             </span>
@@ -441,18 +441,18 @@ export default function BuildingView() {
         <div className="p-6 flex-shrink-0">
           <Link to="/dashboard" className="flex items-center gap-2 mb-6 text-indigo-600 hover:text-indigo-700 font-semibold group">
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            Back to Dashboard
+            Back to Dashboard ダッシュボードに戻る
           </Link>
           <div className="pb-6 border-b border-gray-200">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">{toFullWidth(decodeURIComponent(id))}</h2>
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Package className="w-4 h-4 text-indigo-500" />
-              <span className="font-semibold">{assets.length}</span> total assets
+              <span className="font-semibold">{assets.length}</span> total assets 総資産
             </div>
             {hasActiveFilters && (
               <div className="mt-3 flex items-center justify-between">
-                <span className="text-xs text-indigo-600 font-medium">{filteredAssets.length} filtered</span>
-                <button onClick={clearFilters} className="text-xs text-gray-500 hover:text-gray-700 underline">Clear filters</button>
+                <span className="text-xs text-indigo-600 font-medium">{filteredAssets.length} filtered フィルタリングされた</span>
+                <button onClick={clearFilters} className="text-xs text-gray-500 hover:text-gray-700 underline">Clear filters フィルターをクリアする</button>
               </div>
             )}
           </div>
@@ -465,9 +465,9 @@ export default function BuildingView() {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-indigo-600" />
-                <h3 className="text-sm font-semibold text-gray-700">FLOORS</h3>
+                <h3 className="text-sm font-semibold text-gray-700">FLOORS フロア</h3>
               </div>
-              {selectedFloor && <button onClick={() => { setSelectedFloor(""); setSelectedRoom(""); }} className="text-xs text-indigo-600">Clear</button>}
+              {selectedFloor && <button onClick={() => { setSelectedFloor(""); setSelectedRoom(""); }} className="text-xs text-indigo-600">Clear クリア</button>}
             </div>
             <div className="space-y-2">
               {floors.map((floor) => (
@@ -494,9 +494,9 @@ export default function BuildingView() {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-indigo-600" />
-                  <h3 className="text-sm font-semibold text-gray-700">ROOMS</h3>
+                  <h3 className="text-sm font-semibold text-gray-700">ROOMS 部屋</h3>
                 </div>
-                {selectedRoom && <button onClick={() => setSelectedRoom("")} className="text-xs text-indigo-600">Clear</button>}
+                {selectedRoom && <button onClick={() => setSelectedRoom("")} className="text-xs text-indigo-600">Clear クリア</button>}
               </div>
               <div className="space-y-2">
                 {rooms.map((room) => (
@@ -507,7 +507,7 @@ export default function BuildingView() {
                       }`}
                   >
                     <div className="flex justify-between items-center">
-                      <span>Room {room}</span>
+                      <span>Room 部屋{room}</span>
                       <span className={`text-xs px-2 py-1 rounded-full font-bold ${selectedRoom === room ? "bg-white/20 text-white" : "bg-gray-200 text-gray-700"}`}>
                         {roomCounts[room]}
                       </span>
@@ -528,7 +528,7 @@ export default function BuildingView() {
           <div className="flex items-center justify-between lg:hidden">
             <button onClick={() => setMobileSidebarOpen(true)} className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium shadow-lg">
               <Menu className="w-4 h-4" />
-              Menu
+              Menu メニュー
             </button>
           </div>
           <div>
@@ -536,8 +536,8 @@ export default function BuildingView() {
               {selectedRoom ? `Room ${selectedRoom}` : selectedFloor ? selectedFloor : "All Assets"}
             </h2>
             <p className="text-xs sm:text-sm text-gray-600 mt-1">
-              <span className="font-semibold text-gray-800">{filteredAssets.length}</span> assets
-              {hasActiveFilters && <span className="text-gray-500"> filtered</span>}
+              <span className="font-semibold text-gray-800">{filteredAssets.length}</span> assets 資産
+              {hasActiveFilters && <span className="text-gray-500"> filtered フィルタリングされた</span>}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 flex-wrap">
@@ -557,13 +557,13 @@ export default function BuildingView() {
               )}
             </div>
             <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="border border-gray-300 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:ring-2 focus:ring-indigo-500 bg-white shadow-sm">
-              <option value="all">All Inventory Status</option>
-              <option value="pending">Pending</option>
-              <option value="completed">Completed</option>
+              <option value="all">All Inventory Status すべての在庫状況</option>
+              <option value="pending">Pending 保留中</option>
+              <option value="completed">Completed 完了しました</option>
             </select>
             <button onClick={exportAssets} disabled={filteredAssets.length === 0} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 text-gray-700 rounded-xl text-sm font-medium disabled:opacity-50 shadow-sm border border-gray-200">
               <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Export</span>
+              <span className="hidden sm:inline">Export 輸出</span>
             </button>
             <button onClick={() => fetchAssets(true)} disabled={refreshing} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 text-gray-700 rounded-xl text-sm font-medium shadow-sm border border-gray-200">
               <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
@@ -603,11 +603,11 @@ export default function BuildingView() {
               <div className="inline-block p-6 sm:p-8 bg-gray-100 rounded-full mb-6">
                 <Search className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400" />
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-gray-700 mb-2">No assets found</h3>
-              <p className="text-sm sm:text-base text-gray-500 mb-4">Try adjusting your filters or search term</p>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-700 mb-2">No assets found アセットが見つかりません</h3>
+              <p className="text-sm sm:text-base text-gray-500 mb-4">Try adjusting your filters or search term フィルターまたは検索語を調整してみてください</p>
               {hasActiveFilters && (
                 <button onClick={clearFilters} className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-medium shadow-lg">
-                  Clear All Filters
+                  Clear All Filters すべてのフィルターをクリア
                 </button>
               )}
             </motion.div>
@@ -867,7 +867,7 @@ function CompactAssetModal({ asset, onClose, onUpdate, showNotification, navigat
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 px-4 py-2 md:px-5 md:py-3 flex items-center justify-between rounded-t-2xl flex-shrink-0">
-          <h3 className="text-lg md:text-xl font-bold text-white">Asset Information</h3>
+          <h3 className="text-lg md:text-xl font-bold text-white">Asset Information 資産情報</h3>
           <button onClick={onClose} className="p-1 md:p-1.5 hover:bg-white/20 rounded-lg transition-all">
             <X className="w-4 h-4 md:w-5 md:h-5 text-white" />
           </button>
@@ -1063,7 +1063,7 @@ client/src/pages/AssetDetailsPage.js
               <div className="bg-purple-50 rounded-lg p-1.5 md:p-2 border border-purple-200">
                 <div className="flex items-center gap-1 mb-0.5">
                   <Users className="w-3 h-3 text-purple-600" />
-                  <p className="text-[9px] md:text-[10px] font-semibold text-purple-700 uppercase">Actual User</p>
+                  <p className="text-[9px] md:text-[10px] font-semibold text-purple-700 uppercase">実際のユーザー (Actual User)</p>
                 </div>
                 <p className="text-sm md:text-base text-gray-700 font-medium">{asset.actual_user || "-"}</p>
               </div>
@@ -1098,7 +1098,7 @@ client/src/pages/AssetDetailsPage.js
               <div className="bg-yellow-50 rounded-lg p-1.5 md:p-2 border border-yellow-200">
                 <div className="flex items-center gap-1 mb-0.5">
                   <Clock className="w-3 h-3 text-yellow-600" />
-                  <p className="text-[9px] md:text-[10px] font-semibold text-yellow-700 uppercase">Recent Changes</p>
+                  <p className="text-[9px] md:text-[10px] font-semibold text-yellow-700 uppercase">最近の変更点 (Recent Changes)</p>
                 </div>
                 <div className="space-y-0.5 max-h-12 md:max-h-16 overflow-y-auto">
                   {(() => {
@@ -1114,7 +1114,7 @@ client/src/pages/AssetDetailsPage.js
                     }
 
                     if (!Array.isArray(history) || history.length === 0) {
-                      return <p className="text-sm text-gray-500 italic">No changes recorded</p>;
+                      return <p className="text-sm text-gray-500 italic">No changes recorded 変更は記録されませんでした</p>;
                     }
 
                     return history.slice(0, 2).map((change, idx) => {
@@ -1150,14 +1150,14 @@ client/src/pages/AssetDetailsPage.js
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl font-medium transition-all shadow-md hover:shadow-lg text-sm disabled:opacity-50"
               >
                 <Undo2 className="w-4 h-4" />
-                Undo Inventory
+                Undo Inventory インベントリを元に戻す
               </button>
             ) : inventoryStatus === 'completed' ? (
               /* Already inventoried (from previous session) - show status with option to reset */
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-700 rounded-xl text-sm font-semibold border border-emerald-200">
                   <CheckCircle2 className="w-4 h-4" />
-                  Inventoried ✓
+                  Inventoried 在庫あり ✓
                 </div>
                 <button
                   onClick={handleUndoInventory}
@@ -1165,7 +1165,7 @@ client/src/pages/AssetDetailsPage.js
                   className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-slate-100 to-gray-100 hover:from-slate-200 hover:to-gray-200 text-gray-700 rounded-xl font-medium transition-all shadow-sm text-sm border border-gray-200 disabled:opacity-50"
                 >
                   <RefreshCw className="w-4 h-4" />
-                  Undo
+                  Undo 元に戻す
                 </button>
               </div>
             ) : (
@@ -1184,7 +1184,7 @@ client/src/pages/AssetDetailsPage.js
               className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-slate-100 to-gray-100 hover:from-slate-200 hover:to-gray-200 text-gray-700 rounded-xl font-medium transition-all shadow-sm text-sm border border-gray-200"
             >
               <FileText className="w-4 h-4" />
-              Print PDF
+              Print PDF PDFを印刷する
             </button>
           </div>
           <button
@@ -1192,7 +1192,7 @@ client/src/pages/AssetDetailsPage.js
             className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-medium transition-all shadow-md hover:shadow-lg text-sm"
           >
             <Eye className="w-4 h-4" />
-            View Full Details
+            View Full Details 詳細を表示
             <ExternalLink className="w-3.5 h-3.5" />
           </button>
         </div>

@@ -15,16 +15,16 @@ const AssetCard = ({ asset, onNavigate }) => (
     </div>
     <div className="space-y-1 mb-2">
       <p className="text-xs text-gray-600">
-        <span className="font-medium">🏢 Building:</span> {asset.building}
+        <span className="font-medium">🏢 Building 建物:</span> {asset.building}
       </p>
       <p className="text-xs text-gray-600">
-        <span className="font-medium">📍 Floor:</span> {asset.floor}
+        <span className="font-medium">📍 Floor 床:</span> {asset.floor}
         <span className="mx-1">•</span>
-        <span className="font-medium">🚪 Room:</span> {asset.room}
+        <span className="font-medium">🚪 Room 部屋:</span> {asset.room}
       </p>
     </div>
-    {asset.type && <p className="text-xs text-gray-600 mb-1"><span className="font-medium">Type:</span> {asset.type}</p>}
-    {asset.condition && <p className="text-xs text-gray-600 mb-1"><span className="font-medium">Condition:</span> {asset.condition}</p>}
+    {asset.type && <p className="text-xs text-gray-600 mb-1"><span className="font-medium">Type タイプ:</span> {asset.type}</p>}
+    {asset.condition && <p className="text-xs text-gray-600 mb-1"><span className="font-medium">Condition 状態:</span> {asset.condition}</p>}
     {asset.description && <p className="text-xs text-gray-600 mt-2 pt-2 border-t border-gray-200 italic">"{asset.description.substring(0, 100)}{asset.description.length > 100 ? '...' : ''}"</p>}
     {asset.notes && <p className="text-xs text-blue-600 mt-1 bg-blue-50 p-2 rounded">📝 {asset.notes}</p>}
     {onNavigate && (
@@ -32,7 +32,7 @@ const AssetCard = ({ asset, onNavigate }) => (
         onClick={() => onNavigate(asset.building, asset.floor, asset.room, asset.id)}
         className="mt-3 w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-3 rounded-lg text-xs font-medium hover:from-blue-700 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
       >
-        <span>🎯 View on Dashboard</span>
+        <span>🎯 View on Dashboard ダッシュボードで見る</span>
       </button>
     )}
   </div>
@@ -832,8 +832,8 @@ IMPORTANT: The system handles asset lookups locally. You only provide conversati
                     <Bot className="w-6 h-6" />
                   </div>
                   <div title="Drag to move">
-                    <h3 className="font-bold">AI Assistant</h3>
-                    <p className="text-blue-100 text-xs">SPring-8 Inventory</p>
+                    <h3 className="font-bold">AI Assistant AIアシスタント</h3>
+                    <p className="text-blue-100 text-xs">SPring-8 Inventory 在庫</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -910,7 +910,7 @@ IMPORTANT: The system handles asset lookups locally. You only provide conversati
                       <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-purple-500 to-blue-500"><Bot className="w-5 h-5 text-white" /></div>
                       <div className="flex gap-2 items-center bg-white rounded-2xl p-3 border border-gray-200">
                         <Loader2 className="w-4 h-4 text-blue-600 animate-spin" />
-                        <span className="text-sm text-gray-600">Thinking...</span>
+                        <span className="text-sm text-gray-600">Thinking 考え...</span>
                       </div>
                     </div>
                   </motion.div>
@@ -956,13 +956,13 @@ IMPORTANT: The system handles asset lookups locally. You only provide conversati
                 {isSpeaking && (
                   <div className="flex items-center gap-2 mt-2 text-xs text-gray-600">
                     <Volume2 className="w-4 h-4 animate-pulse text-blue-600" />
-                    <span>Speaking...</span>
+                    <span>Speaking 話し中...</span>
                     <button
                       onClick={stopSpeaking}
                       onPointerDown={(e) => e.stopPropagation()}
                       className="ml-auto text-red-600 hover:text-red-700 font-medium"
                     >
-                      Stop
+                      Stop 停止
                     </button>
                   </div>
                 )}

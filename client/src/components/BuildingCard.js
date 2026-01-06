@@ -38,23 +38,23 @@ export default function BuildingCard({ building, highlighted, onHover = ()=>{}, 
             </div>
 
             <p className="text-sm text-slate-600 mt-2 line-clamp-2">
-              {building.total} tracked assets • {building.assets?.length ?? 0} inventory items
+              {building.total} tracked assets 追跡された資産 • {building.assets?.length ?? 0} inventory items 在庫品目
             </p>
 
             <div className="mt-3 text-sm text-slate-600">
-              <span className="inline-flex items-center px-2 py-1 bg-green-50 text-green-700 rounded text-xs mr-2">Available</span>
-              <span className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs">Floors: { new Set((building.assets||[]).map(a=>a.floor)).size }</span>
+              <span className="inline-flex items-center px-2 py-1 bg-green-50 text-green-700 rounded text-xs mr-2">Available 利用可能</span>
+              <span className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs">Floors 床: { new Set((building.assets||[]).map(a=>a.floor)).size }</span>
             </div>
           </div>
 
           <div className="mt-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button onClick={() => onShowOnMap(building.id)} className="px-3 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700">Show on map</button>
-              <button className="px-3 py-2 border rounded-md text-sm hover:bg-slate-50">View details</button>
+              <button onClick={() => onShowOnMap(building.id)} className="px-3 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700">Show on map 地図上に表示</button>
+              <button className="px-3 py-2 border rounded-md text-sm hover:bg-slate-50">View details 詳細を見る</button>
             </div>
             <div>
               <button className="p-2 rounded-full hover:bg-slate-100">
-                <span className="material-symbols-outlined" style={{ fontSize: 20 }}>favorite_border</span>
+                <span className="material-symbols-outlined" style={{ fontSize: 20 }}>favorite_border お気に入りのボーダー</span>
               </button>
             </div>
           </div>

@@ -137,7 +137,7 @@ export default function DashboardView() {
         lat: building.lat || 0,
         lon: building.lon || 0,
         total: building.total_assets || 0,
-        desc: building.description || `Contains ${building.total_assets || 0} assets across multiple rooms and floors.`,
+        desc: building.description || `Contains 含まれています ${building.total_assets || 0} assets across multiple rooms and floors 複数の部屋やフロアにまたがる資産.`,
         image: building.primary_image_url || building.images?.[0]?.image_url || 'images/istockSPring.jpg',
       }));
 
@@ -154,7 +154,7 @@ export default function DashboardView() {
     if (assets.length === 0) return;
 
     const grouped = assets.reduce((acc, asset) => {
-      const key = asset.building || "Unknown Building";
+      const key = asset.building || "Unknown Building 不明な建物";
       if (!acc[key]) acc[key] = [];
       acc[key].push(asset);
       return acc;
@@ -171,7 +171,7 @@ export default function DashboardView() {
         lat: avgLat,
         lon: avgLon,
         total,
-        desc: `Contains ${total} assets across multiple rooms and floors.`,
+        desc: `Contains 含まれています ${total} assets across multiple rooms and floors 複数の部屋やフロアにまたがる資産.`,
         image: 'images/istockSPring.jpg',
       };
     });
@@ -217,7 +217,7 @@ export default function DashboardView() {
 
     // Inventory completed notifications
     assets.forEach(asset => {
-      if (asset.inventory_status === 'completed' && asset.last_inventoried) {
+      if (asset.inventory_status === 'completed 完成した' && asset.last_inventoried) {
         const inventoriedDate = new Date(asset.last_inventoried);
         const daysDiff = Math.floor((now - inventoriedDate) / (1000 * 60 * 60 * 24));
         if (daysDiff <= 7) {
@@ -251,7 +251,7 @@ export default function DashboardView() {
       }
 
       // Maintenance/attention needed
-      if (asset.inventory_status === 'pending') {
+      if (asset.inventory_status === 'pending 保留中') {
         const createdDate = asset.created_at ? new Date(asset.created_at) : now;
         notifs.push({
           id: `pending-${asset.id}`,
@@ -377,7 +377,7 @@ export default function DashboardView() {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
     navigate("/login");
-    showNotification("Logged out successfully", "success");
+    showNotification("Logged out successfully 正常にログアウトされました", "success 成功");
   };
 
   // Navigation Handler
@@ -397,7 +397,7 @@ export default function DashboardView() {
     try {
       const trimmedCode = code.trim();
       if (!trimmedCode) {
-        showNotification("⚠️ Please enter a valid code", "error");
+        showNotification("⚠️ Please enter a valid code 有効なコードを入力してください", "error エラー");
         return;
       }
 
@@ -410,7 +410,7 @@ export default function DashboardView() {
 
       if (foundAsset) {
         setScanSuccess(true);
-        showNotification(`✅ Asset Found: ${foundAsset.name}`, "success");
+        showNotification(`✅ Asset Found 見つかった資産: ${foundAsset.name}`, "success 成功");
 
         // Delay navigation to show success state
         setTimeout(() => {
@@ -428,12 +428,12 @@ export default function DashboardView() {
           });
         }, 1500);
       } else {
-        showNotification(`❌ No asset found for code: ${trimmedCode}`, "error");
+        showNotification(`❌ No asset found for code コードにアセットが見つかりません: ${trimmedCode}`, "error エラー");
         setScanning(false);
       }
     } catch (err) {
       console.error("Error searching asset:", err);
-      showNotification("❌ Search failed - please try again", "error");
+      showNotification("❌ Search failed - please try again 検索に失敗しました - もう一度お試しください", "error エラー");
       setScanning(false);
     }
   };
@@ -457,7 +457,7 @@ export default function DashboardView() {
 
           // Stop camera and search
           stopCamera().then(() => {
-            showNotification("🔍 Code detected - searching asset...", "info");
+            showNotification("🔍 Code detected - searching asset コードが検出されました - 資産を検索中...", "info 情報");
             setTimeout(() => {
               searchAssetByCode(decodedText);
             }, 800);
@@ -468,10 +468,10 @@ export default function DashboardView() {
         }
       );
 
-      showNotification("📸 Point at QR/barcode", "info");
+      showNotification("📸 Point at QR/barcode QR/バーコードをポイント", "info 情報");
     } catch (err) {
       console.error("Camera error:", err);
-      showNotification("❌ Camera not available - using manual mode", "error");
+      showNotification("❌ Camera not available - using manual mode カメラが利用できません - 手動モードを使用しています", "error エラー");
       setScannerMode('manual');
     }
   };
@@ -558,7 +558,7 @@ export default function DashboardView() {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4">
         <div className="text-center">
           <Loader2 className="w-12 h-12 sm:w-16 sm:h-16 text-indigo-600 animate-spin mx-auto mb-4" />
-          <p className="text-gray-700 text-base sm:text-lg font-semibold">Loading dashboard...</p>
+          <p className="text-gray-700 text-base sm:text-lg font-semibold">Loading dashboard ダッシュボードを読み込み中...</p>
         </div>
       </div>
     );
@@ -572,13 +572,13 @@ export default function DashboardView() {
           <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <AlertCircle className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Connection Error</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Connection Error 接続エラー</h2>
           <p className="text-sm sm:text-base text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => fetchAssets()}
             className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 w-full sm:w-auto"
           >
-            Try Again
+            Try Again もう一度やり直してください
           </button>
         </div>
       </div>
@@ -637,8 +637,8 @@ export default function DashboardView() {
                     <ScanLine className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white">Asset Scanner</h3>
-                    <p className="text-xs text-indigo-100">Scan or enter asset code</p>
+                    <h3 className="text-lg font-bold text-white">Asset Scanner アセットスキャナー</h3>
+                    <p className="text-xs text-indigo-100">Scan or enter asset code 資産コードをスキャンまたは入力</p>
                   </div>
                 </div>
                 <button
@@ -660,7 +660,7 @@ export default function DashboardView() {
                       }`}
                   >
                     <Camera className="w-5 h-5" />
-                    Camera Scan
+                    Camera Scan カメラスキャン
                   </button>
                   <button
                     onClick={() => handleScannerModeChange('manual')}
@@ -670,7 +670,7 @@ export default function DashboardView() {
                       }`}
                   >
                     <Search className="w-5 h-5" />
-                    Manual Entry
+                    Manual Entry 手動入力
                   </button>
                 </div>
 
@@ -688,15 +688,15 @@ export default function DashboardView() {
                         className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-lg"
                       >
                         <Camera className="w-6 h-6" />
-                        Scan Again
+                        Scan Again 再スキャン
                       </button>
                     ) : (
                       <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-100">
                         <p className="text-sm text-gray-700 text-center">
-                          <span className="font-semibold">📱 Supports:</span> QR codes & all standard barcodes (EAN, UPC, Code128, etc.)
+                          <span className="font-semibold">📱 Supports サポート:</span> QR codes & all standard barcodes (EAN, UPC, Code128, etc.) QR コードとすべての標準バーコード (EAN、UPC、Code128 など)
                         </p>
                         <p className="text-xs text-gray-600 text-center mt-1">
-                          Hold steady and ensure good lighting for best results
+                          Hold steady and ensure good lighting for best results 安定した姿勢を保ち、十分な照明を確保することで最良の結果が得られます
                         </p>
                       </div>
                     )}
@@ -706,7 +706,7 @@ export default function DashboardView() {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-bold text-gray-700 mb-3">
-                        Enter Asset ID or Barcode
+                        Enter Asset ID or Barcode 資産IDまたはバーコードを入力
                       </label>
                       <div className="relative">
                         <input
@@ -740,18 +740,18 @@ export default function DashboardView() {
                       {scanning ? (
                         <>
                           <Loader2 className="w-6 h-6 animate-spin" />
-                          Searching...
+                          Searching 検索中...
                         </>
                       ) : (
                         <>
                           <Search className="w-6 h-6" />
-                          Search Asset
+                          Search Asset アセットの検索
                         </>
                       )}
                     </button>
                     <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                       <p className="text-xs text-gray-600 text-center">
-                        💡 You can search by asset ID, name, barcode, or QR code
+                        💡 You can search by asset ID, name, barcode, or QR code 資産ID、名前、バーコード、QRコードで検索できます
                       </p>
                     </div>
                   </div>
@@ -786,15 +786,15 @@ export default function DashboardView() {
                     className="mt-1 flex items-center gap-1 px-2 py-1 text-xs font-medium text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 rounded-lg transition-all"
                   >
                     <Undo className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                    Dashboard
+                    Dashboard ダッシュボード
                   </button>
                 )}
               </motion.div>
 
               {/* Desktop Stats */}
               <div className="hidden md:flex items-center gap-2 lg:gap-3">
-                <CompactStat icon={<Package />} value={totalAssets} label="Assets" color="blue" />
-                <CompactStat icon={<Building2 />} value={buildings.length} label="Buildings" color="purple" />
+                <CompactStat icon={<Package />} value={totalAssets} label="Assets 資産" color="blue" />
+                <CompactStat icon={<Building2 />} value={buildings.length} label="Buildings 建物" color="purple" />
                 <CompactStat icon={<Activity />} value={verificationPendingCount} label="棚卸済" color="green" />
                 <CompactStat icon={<ShieldAlert />} value={maintenanceAssetCount} label="未棚卸" color="orange" />
               </div>
@@ -808,7 +808,7 @@ export default function DashboardView() {
                 <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search buildings..."
+                  placeholder="Search buildings 建物を検索する..."
                   className="w-56 xl:w-64 pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white shadow-sm"
                 />
               </div>
@@ -818,7 +818,7 @@ export default function DashboardView() {
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl text-sm font-semibold shadow-lg transition-all"
               >
                 <ScanLine className="w-4 h-4" />
-                Scan Asset
+                Scan Asset アセットのスキャン
               </button>
 
               {/* Desktop Action Buttons */}
@@ -995,8 +995,8 @@ export default function DashboardView() {
 
           {/* Mobile Stats */}
           <div className="md:hidden grid grid-cols-4 gap-2 mt-3">
-            <CompactStat icon={<Package />} value={totalAssets} label="Assets" color="blue" isMobile />
-            <CompactStat icon={<Building2 />} value={buildings.length} label="Buildings" color="purple" isMobile />
+            <CompactStat icon={<Package />} value={totalAssets} label="Assets 資産" color="blue" isMobile />
+            <CompactStat icon={<Building2 />} value={buildings.length} label="Buildings 建物" color="purple" isMobile />
             <CompactStat icon={<Activity />} value={verificationPendingCount} label="棚卸済" color="green" isMobile />
             <CompactStat icon={<ShieldAlert />} value={maintenanceAssetCount} label="未棚卸" color="orange" isMobile />
           </div>
@@ -1031,8 +1031,8 @@ export default function DashboardView() {
                       <User className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-800">{user.name || "User"}</p>
-                      <p className="text-xs text-gray-500">{user.role || "Staff"}</p>
+                      <p className="text-sm font-semibold text-gray-800">{user.name || "User ユーザー"}</p>
+                      <p className="text-xs text-gray-500">{user.role || "Staff スタッフ"}</p>
                     </div>
                   </div>
 
@@ -1045,7 +1045,7 @@ export default function DashboardView() {
                         }`}
                     >
                       <Grid3x3 className="w-4 h-4" />
-                      List
+                      List リスト
                     </button>
                     <button
                       onClick={() => setViewMode("map")}
@@ -1055,7 +1055,7 @@ export default function DashboardView() {
                         }`}
                     >
                       <MapPin className="w-4 h-4" />
-                      Map
+                      Map 地図
                     </button>
                   </div>
 
@@ -1065,7 +1065,7 @@ export default function DashboardView() {
                     className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 text-gray-700 rounded-xl text-sm font-semibold shadow-sm border border-gray-200"
                   >
                     <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
-                    Refresh
+                    Refresh リフレッシュ
                   </button>
 
                   <button
@@ -1088,7 +1088,7 @@ export default function DashboardView() {
                     className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-br from-red-50 to-pink-50 hover:from-red-100 hover:to-pink-100 text-red-600 rounded-xl text-sm font-semibold shadow-sm border border-red-200"
                   >
                     <LogOut className="w-4 h-4" />
-                    Logout
+                    Logout ログアウト
                   </button>
                 </div>
               </motion.div>
@@ -1102,7 +1102,7 @@ export default function DashboardView() {
         <main className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
             <p className="text-gray-600 text-xs sm:text-sm font-medium">
-              Showing <span className="font-bold text-indigo-600">{filteredBuildings.length}</span> buildings
+              Showing 表示中 <span className="font-bold text-indigo-600">{filteredBuildings.length}</span> buildings 建物
               {search && <span className="text-gray-500"> (filtered)</span>}
             </p>
           </div>
@@ -1130,13 +1130,13 @@ export default function DashboardView() {
             {filteredBuildings.length === 0 && (
               <div className="col-span-full text-center py-16 bg-white rounded-2xl shadow-sm border border-gray-100">
                 <Building2 className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 font-medium">No buildings found</p>
+                <p className="text-gray-500 font-medium">No buildings found 建物が見つかりませんでした</p>
                 {search && (
                   <button
                     onClick={() => setSearch('')}
                     className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-all"
                   >
-                    Clear Search
+                    Clear Search 検索をクリア
                   </button>
                 )}
               </div>
@@ -1175,7 +1175,7 @@ export default function DashboardView() {
                   />
                   <div className="flex-1 min-w-0">
                     <h4 className="font-semibold text-sm truncate text-gray-900">{b.name}</h4>
-                    <p className="text-xs text-gray-500 font-medium">{b.total} assets</p>
+                    <p className="text-xs text-gray-500 font-medium">{b.total} assets 資産</p>
                   </div>
                 </div>
               ))}
@@ -1268,7 +1268,7 @@ function BuildingCard({ building, onShowMap }) {
             </div>
             <span className="text-2xl font-bold text-gray-900">{building.total}</span>
           </div>
-          <span className="text-sm text-gray-600 font-medium">Assets</span>
+          <span className="text-sm text-gray-600 font-medium">Assets 資産</span>
         </div>
 
         <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
@@ -1281,14 +1281,14 @@ function BuildingCard({ building, onShowMap }) {
             className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 text-gray-700 font-semibold py-2 rounded-xl transition-all flex items-center justify-center gap-2 text-sm shadow-sm border border-gray-200"
           >
             <MapPin className="w-4 h-4" />
-            Map
+            Map 地図
           </button>
           <a
             href={`/building/${encodeURIComponent(building.name)}`}
             className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-2 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl text-sm"
           >
             <Grid3x3 className="w-4 h-4" />
-            View
+            View ビュー
           </a>
         </div>
       </div>
