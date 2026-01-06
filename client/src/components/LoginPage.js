@@ -56,14 +56,14 @@ export default function LoginPage() {
           <Building2 className="w-10 h-10 text-white" />
         </div>
         <h1 className="text-4xl font-bold text-slate-900 tracking-tight">SPring-8</h1>
-        <p className="text-2xl text-slate-700 font-medium">Inventory Management 在庫管理</p>
+        <p className="text-2xl text-slate-700 font-medium">在庫管理</p>
       </div>
 
       {/* Login Card */}
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-15xl shadow-slate-500/50 border border-slate-400 overflow-hidden">
           <div className="p-8">
-            <h2 className="text-3xl font-semibold text-slate-800 mb-6">Sign In サインイン</h2>
+            <h2 className="text-3xl font-semibold text-slate-800 mb-6">サインイン</h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Error Message */}
@@ -83,14 +83,14 @@ export default function LoginPage() {
 
               {/* User ID */}
               <div className="space-y-1.5">
-                <label className="text-2xl font-semibold text-slate-700 ml-1">User ID ユーザーID</label>
+                <label className="text-2xl font-semibold text-slate-700 ml-1">ユーザーID</label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input
                     type="text"
                     value={userId}
                     onChange={(e) => setUserId(e.target.value)}
-                    placeholder="Enter your ID IDを入力してください"
+                    placeholder="IDを入力してください"
                     className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-400 rounded-xl outline-none transition-all text-slate-900 placeholder-slate-400"
                     disabled={loading}
                   />
@@ -99,7 +99,7 @@ export default function LoginPage() {
 
               {/* Password */}
               <div className="space-y-1.5">
-                <label className="text-2xl font-semibold text-slate-700 ml-1">Password パスワード</label>
+                <label className="text-2xl font-semibold text-slate-700 ml-1">パスワード</label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input
@@ -130,7 +130,7 @@ export default function LoginPage() {
                   <div className="w-5 h-5 border-2 border-white/30 border-t-black rounded-full animate-spin" />
                 ) : (
                   <>
-                    <span>Sign In サインイン</span>
+                    <span>サインイン</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
@@ -156,7 +156,7 @@ export default function LoginPage() {
 
         {/* Footer Text */}
         <p className="mt-8 text-center text-slate-400 text-sm">
-          &copy; 2025 SPring-8 Security Services. All rights reserved. セキュリティサービス。無断複写・転載を禁じます。
+          &copy; 2025 SPring-8 セキュリティサービス。無断複写・転載を禁じます。
         </p>
       </div>
     </div>
