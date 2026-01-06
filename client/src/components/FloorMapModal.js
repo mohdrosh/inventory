@@ -10,64 +10,63 @@ import { useConfirmDialog } from "./useConfirmDialog";
 // Room definitions for 1F (First Floor)
 const ROOMS_1F = [
   // Left side - Bottom to Top
-  { id: "101", name: "試料測定室", coordinates: "10,180 75,180 75,290 10,290", category: "office" },
-  { id: "102", name: "廊下", coordinates: "10,100 75,100 75,175 10,175", category: "circulation" },
-  { id: "103", name: "X線実験準備室", coordinates: "10,10 75,10 75,95 10,95", category: "office" },
+  { id: "101", name: "試料測定室", coordinates: "10,180 75,180 75,290 10,290", category: "office オフィス" },
+  { id: "102", name: "廊下", coordinates: "10,100 75,100 75,175 10,175", category: "circulation 循環" },
+  { id: "103", name: "X線実験準備室", coordinates: "10,10 75,10 75,95 10,95", category: "office オフィス" },
 
   // Main vertical corridor
-  { id: "hallway-main-1f", name: "廊下", coordinates: "80,10 110,10 110,290 80,290", category: "circulation" },
-
+  { id: "hallway-main-1f", name: "廊下", coordinates: "80,10 110,10 110,290 80,290", category: "circulation 循環" },
   // Center-left column - Bottom to Top
-  { id: "104", name: "NMR室", coordinates: "115,180 185,180 185,290 115,290", category: "office" },
-  { id: "105", name: "天秤室", coordinates: "115,138 185,138 185,175 115,175", category: "office" },
-  { id: "106", name: "ソフト室", coordinates: "115,103 185,103 185,133 115,133", category: "office" },
-  { id: "107", name: "測定室", coordinates: "115,75 185,75 185,98 115,98", category: "office" },
-  { id: "stairs-1-1f", name: "階段", coordinates: "115,40 150,40 150,70 115,70", category: "utility" },
-  { id: "toilets-1f", name: "便所", coordinates: "155,10 185,10 185,70 155,70", category: "utility" },
+  { id: "104", name: "NMR室", coordinates: "115,180 185,180 185,290 115,290", category: "office オフィス" },
+  { id: "105", name: "天秤室", coordinates: "115,138 185,138 185,175 115,175", category: "office オフィス" },
+  { id: "106", name: "ソフト室", coordinates: "115,103 185,103 185,133 115,133", category: "office オフィス" },
+  { id: "107", name: "測定室", coordinates: "115,75 185,75 185,98 115,98", category: "office オフィス" },
+  { id: "stairs-1-1f", name: "階段", coordinates: "115,40 150,40 150,70 115,70", category: "utility ユーティリティ" },
+  { id: "toilets-1f", name: "便所", coordinates: "155,10 185,10 185,70 155,70", category: "utility ユーティリティ" },
 
   // Center column - Bottom to Top (larger rooms)
-  { id: "108", name: "実験室", coordinates: "190,180 305,180 305,290 190,290", category: "office" },
-  { id: "109", name: "クリーン控室", coordinates: "190,103 305,103 305,175 190,175", category: "office" },
-  { id: "110", name: "リフレッシュコーナー", coordinates: "190,75 305,75 305,98 190,98", category: "common" },
-  { id: "111", name: "化学準備室", coordinates: "190,10 305,10 305,70 190,70", category: "office" },
+  { id: "108", name: "実験室", coordinates: "190,180 305,180 305,290 190,290", category: "office オフィス" },
+  { id: "109", name: "クリーン控室", coordinates: "190,103 305,103 305,175 190,175", category: "office オフィス" },
+  { id: "110", name: "リフレッシュコーナー", coordinates: "190,75 305,75 305,98 190,98", category: "common 一般" },
+  { id: "111", name: "化学準備室", coordinates: "190,10 305,10 305,70 190,70", category: "office オフィス" },
 
   // Center-right column - Bottom to Top
-  { id: "112", name: "実験・計算室", coordinates: "310,180 395,180 395,290 310,290", category: "office" },
-  { id: "113", name: "ドラフト室", coordinates: "310,138 395,138 395,175 310,175", category: "office" },
-  { id: "114", name: "機器分析室", coordinates: "310,103 395,103 395,133 310,133", category: "office" },
-  { id: "115", name: "試料調整室", coordinates: "310,75 395,75 395,98 310,98", category: "office" },
-  { id: "116", name: "恒温・恒湿室", coordinates: "310,10 395,10 395,70 310,70", category: "office" },
+  { id: "112", name: "実験・計算室", coordinates: "310,180 395,180 395,290 310,290", category: "office オフィス" },
+  { id: "113", name: "ドラフト室", coordinates: "310,138 395,138 395,175 310,175", category: "office オフィス" },
+  { id: "114", name: "機器分析室", coordinates: "310,103 395,103 395,133 310,133", category: "office オフィス" },
+  { id: "115", name: "試料調整室", coordinates: "310,75 395,75 395,98 310,98", category: "office オフィス" },
+  { id: "116", name: "恒温・恒湿室", coordinates: "310,10 395,10 395,70 310,70", category: "office オフィス" },
 
   // Far right column - Bottom to Top (larger bottom room)
-  { id: "117", name: "有機合成実験室", coordinates: "400,138 490,138 490,290 400,290", category: "office" },
-  { id: "118", name: "会議・応接室", coordinates: "400,103 490,103 490,133 400,133", category: "office" },
-  { id: "119", name: "倉庫", coordinates: "400,75 490,75 490,98 400,98", category: "utility" },
-  { id: "120", name: "RI・P3実験室", coordinates: "400,10 490,10 490,70 400,70", category: "office" },
+  { id: "117", name: "有機合成実験室", coordinates: "400,138 490,138 490,290 400,290", category: "office オフィス" },
+  { id: "118", name: "会議・応接室", coordinates: "400,103 490,103 490,133 400,133", category: "office オフィス" },
+  { id: "119", name: "倉庫", coordinates: "400,75 490,75 490,98 400,98", category: "utility ユーティリティ" },
+  { id: "120", name: "RI・P3実験室", coordinates: "400,10 490,10 490,70 400,70", category: "office オフィス" },
 ];
 
 // Room definitions for 2F (Second Floor)
 const ROOMS_2F = [
   // Offices & Labs (Blue)
-  { id: "201-1", name: "研究室 201-1", coordinates: "10,190 80,190 80,290 10,290", category: "office" },
-  { id: "203", name: "応接室", coordinates: "115,110 185,110 185,150 115,150", category: "office" },
-  { id: "204", name: "研究室", coordinates: "115,155 185,155 185,215 115,215", category: "office" },
-  { id: "205", name: "研究室", coordinates: "115,220 185,220 185,290 115,290", category: "office" },
-  { id: "206", name: "構造データ保管室", coordinates: "10,110 75,110 75,185 10,185", category: "office" },
-  { id: "207", name: "会議室", coordinates: "10,10 75,10 75,70 10,70", category: "office" },
-  { id: "208", name: "研究室", coordinates: "380,10 490,10 490,70 380,70", category: "office" },
-  { id: "209", name: "研究室", coordinates: "305,10 375,10 375,70 305,70", category: "office" },
-  { id: "210", name: "研究室", coordinates: "230,10 300,10 300,70 230,70", category: "office" },
-  { id: "211", name: "研究室", coordinates: "155,10 225,10 225,70 155,70", category: "office" },
+  { id: "201-1", name: "研究室 201-1", coordinates: "10,190 80,190 80,290 10,290", category: "office オフィス" },
+  { id: "203", name: "応接室", coordinates: "115,110 185,110 185,150 115,150", category: "office オフィス" },
+  { id: "204", name: "研究室", coordinates: "115,155 185,155 185,215 115,215", category: "office オフィス" },
+  { id: "205", name: "研究室", coordinates: "115,220 185,220 185,290 115,290", category: "office オフィス" },
+  { id: "206", name: "構造データ保管室", coordinates: "10,110 75,110 75,185 10,185", category: "office オフィス" },
+  { id: "207", name: "会議室", coordinates: "10,10 75,10 75,70 10,70", category: "office オフィス" },
+  { id: "208", name: "研究室", coordinates: "380,10 490,10 490,70 380,70", category: "office オフィス" },
+  { id: "209", name: "研究室", coordinates: "305,10 375,10 375,70 305,70", category: "office オフィス" },
+  { id: "210", name: "研究室", coordinates: "230,10 300,10 300,70 230,70", category: "office オフィス" },
+  { id: "211", name: "研究室", coordinates: "155,10 225,10 225,70 155,70", category: "office オフィス" },
   // Circulation (Purple)
-  { id: "hallway-main", name: "廊下", coordinates: "80,75 490,75 490,105 80,105", category: "circulation" },
-  { id: "hallway-side", name: "廊下", coordinates: "80,110 110,110 110,290 80,290", category: "circulation" },
-  { id: "entrance", name: "玄関", coordinates: "80,75 110,75 110,105 80,105", category: "circulation" },
+  { id: "hallway-main", name: "廊下", coordinates: "80,75 490,75 490,105 80,105", category: "circulation 循環" },
+  { id: "hallway-side", name: "廊下", coordinates: "80,110 110,110 110,290 80,290", category: "circulation 循環" },
+  { id: "entrance", name: "玄関", coordinates: "80,75 110,75 110,105 80,105", category: "circulation 循環" },
   // Common Areas (Green)
-  { id: "refresh-corner", name: "リフレッシュコーナー", coordinates: "10,75 75,75 75,105 10,105", category: "common" },
+  { id: "refresh-corner", name: "リフレッシュコーナー", coordinates: "10,75 75,75 75,105 10,105", category: "common 一般" },
   // Utility (Yellow)
-  { id: "stairs-1", name: "階段(1)", coordinates: "115,10 150,10 150,45 115,45", category: "utility" },
-  { id: "toilets", name: "便所", coordinates: "115,50 150,50 150,70 115,70", category: "utility" },
-  { id: "stairs-2", name: "階段(2)", coordinates: "460,110 490,110 490,150 460,150", category: "utility" },
+  { id: "stairs-1", name: "階段(1)", coordinates: "115,10 150,10 150,45 115,45", category: "utility ユーティリティ" },
+  { id: "toilets", name: "便所", coordinates: "115,50 150,50 150,70 115,70", category: "utility ユーティリティ" },
+  { id: "stairs-2", name: "階段(2)", coordinates: "460,110 490,110 490,150 460,150", category: "utility ユーティリティ" },
 ];
 
 // Get rooms based on floor
@@ -641,10 +640,10 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
       };
 
       onAssetUpdate(updatedAsset);
-      showNotification("✅ 位置が確認されました", "success");
+      showNotification("✅ 位置が確認されました", "success 成功");
     } catch (err) {
       console.error("Error confirming location:", err);
-      showNotification(err.response?.data?.error || "位置の確認に失敗しました", "error");
+      showNotification(err.response?.data?.error || "位置の確認に失敗しました", "error エラー");
     } finally {
       setUpdating(false);
     }
@@ -654,22 +653,22 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
     if (!selectedAsset) return;
 
     if (!canPerformInventory) {
-      showNotification("⚠️ 先に資産の位置を確認してください", "error");
+      showNotification("⚠️ 先に資産の位置を確認してください", "error エラー");
       return;
     }
 
     try {
       const confirmed = await confirm({
-        title: "Inventory complete?",
-        message: "Mark inventory as complete for this asset?",
-        confirmText: "Confirm",
-        cancelText: "Cancel",
+        title: "Inventory complete 在庫完了?",
+        message: "Mark inventory as complete for this asset この資産の在庫を完了としてマークする?",
+        confirmText: "Confirm 確認する",
+        cancelText: "Cancel キャンセル",
       });
       if (!confirmed) return;
 
       setUpdating(true);
       const updateData = {
-        inventory_status: 'completed',
+        inventory_status: 'completed 完成した',
         inventory_date: new Date().toISOString()
       };
       await axios.put(`${API_BASE_URL}/assets/${selectedAsset.id}`, updateData);
@@ -677,7 +676,7 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
       setJustCompleted(true);
       setShowUndo(true);
       onAssetUpdate({ ...selectedAsset, inventory_status: 'completed', inventory_date: new Date().toISOString() });
-      showNotification("✅ Inventory completed!", "success");
+      showNotification("✅ Inventory completed 在庫完了!", "success 成功");
 
       const timer = setTimeout(() => {
         setShowUndo(false);
@@ -686,7 +685,7 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
       setUndoTimer(timer);
     } catch (err) {
       console.error("Error updating inventory:", err);
-      showNotification(err.response?.data?.error || "Failed to update inventory", "error");
+      showNotification(err.response?.data?.error || "Failed to update inventory 在庫の更新に失敗しました", "error エラー");
     } finally {
       setUpdating(false);
     }
@@ -696,17 +695,17 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
     if (!selectedAsset) return;
     try {
       const confirmed = await confirm({
-        title: "Undo inventory?",
-        message: "Set inventory status back to pending?",
-        confirmText: "Undo",
-        cancelText: "Cancel",
-        confirmVariant: "danger",
+        title: "Undo inventory インベントリを元に戻す?",
+        message: "Set inventory status back to pending 在庫ステータスを保留に戻す?",
+        confirmText: "Undo 元に戻す",
+        cancelText: "Cancel キャンセル",
+        confirmVariant: "danger 危険",
       });
       if (!confirmed) return;
 
       setUpdating(true);
       const updateData = {
-        inventory_status: 'pending',
+        inventory_status: 'pending 保留中',
         inventory_date: null
       };
       await axios.put(`${API_BASE_URL}/assets/${selectedAsset.id}`, updateData);
@@ -718,10 +717,10 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
         setUndoTimer(null);
       }
       onAssetUpdate({ ...selectedAsset, inventory_status: 'pending', inventory_date: null });
-      showNotification("↩️ Inventory reset to pending", "info");
+      showNotification("↩️ Inventory reset to pending 在庫が保留にリセットされました", "info 情報");
     } catch (err) {
       console.error("Error undoing inventory:", err);
-      showNotification(err.response?.data?.error || "Failed to undo inventory", "error");
+      showNotification(err.response?.data?.error || "Failed to undo inventory 在庫を元に戻すことができませんでした", "error エラー");
     } finally {
       setUpdating(false);
     }
@@ -818,20 +817,20 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
                   title={!canPerformInventory ? "位置を確認してください" : "Scan and Verify"}
                 >
                   <ScanLine className="w-3.5 h-3.5" />
-                  Scan
+                  Scan スキャン
                 </button>
                 <button
                   onClick={handleInventoryComplete}
                   disabled={updating || !canPerformInventory}
                   className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium text-xs transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                  title={!canPerformInventory ? "位置を確認してください" : "Mark Completed"}
+                  title={!canPerformInventory ? "位置を確認してください" : "Mark Completed 完了マークを付ける"}
                 >
                   {updating ? (
                     <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   ) : (
                     <CheckCircle className="w-3.5 h-3.5" />
                   )}
-                  Mark inventory
+                  Mark inventory 在庫にマークを付ける
                 </button>
               </div>
             ) : (
@@ -845,7 +844,7 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
                 ) : (
                   <RotateCcw className="w-3.5 h-3.5" />
                 )}
-                Undo inventory
+                Undo inventory インベントリを元に戻す
               </button>
             )}
           </div>
@@ -854,28 +853,28 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
             <div className="bg-gray-900 rounded-lg p-2 border border-gray-700">
               <div className="flex items-center gap-1 mb-0.5">
                 <User className="w-3 h-3 text-blue-400" />
-                <span className="text-[10px] text-gray-500">User</span>
+                <span className="text-[10px] text-gray-500">User ユーザー</span>
               </div>
               <p className="text-xs font-medium text-gray-200 truncate">{selectedAsset.user || "N/A"}</p>
             </div>
             <div className="bg-gray-900 rounded-lg p-2 border border-gray-700">
               <div className="flex items-center gap-1 mb-0.5">
                 <Building className="w-3 h-3 text-blue-400" />
-                <span className="text-[10px] text-gray-500">Company</span>
+                <span className="text-[10px] text-gray-500">Company 会社</span>
               </div>
               <p className="text-xs font-medium text-gray-200 truncate">{selectedAsset.company_name || "N/A"}</p>
             </div>
             <div className="bg-gray-900 rounded-lg p-2 border border-gray-700">
               <div className="flex items-center gap-1 mb-0.5">
                 <MapPin className="w-3 h-3 text-blue-400" />
-                <span className="text-[10px] text-gray-500">Location</span>
+                <span className="text-[10px] text-gray-500">Location 位置</span>
               </div>
               <p className="text-xs font-medium text-gray-200 truncate">{selectedAsset.floor} / {selectedAsset.room}</p>
             </div>
             <div className="bg-gray-900 rounded-lg p-2 border border-gray-700">
               <div className="flex items-center gap-1 mb-0.5">
                 <CheckCircle className="w-3 h-3 text-blue-400" />
-                <span className="text-[10px] text-gray-500">Status</span>
+                <span className="text-[10px] text-gray-500">Status 状態</span>
               </div>
               <p className="text-xs font-medium truncate">
                 {selectedAsset.location_confirmed ? (
@@ -938,7 +937,7 @@ function RoomAssetPanel({ room, assets, selectedAsset, onAssetSelect, onBack, on
         <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-700 flex-grow flex flex-col min-h-0">
           <h4 className="text-base sm:text-lg font-semibold mb-3 flex items-center justify-between">
             <span className="flex items-center gap-2">
-              <Package className="w-4 h-4 sm:w-5 sm:h-5" /> Assets
+              <Package className="w-4 h-4 sm:w-5 sm:h-5" /> Assets 資産
             </span>
             <span className="text-sm font-bold bg-blue-600 px-2.5 py-1 rounded-full">
               {filteredAssets.length}
@@ -1027,7 +1026,7 @@ export default function FloorMapModal({ buildingName, onClose }) {
   const [scanCallback, setScanCallback] = useState(null);
   const html5QrCodeRef = React.useRef(null);
 
-  const hasLayout = buildingName === "High Throughput Building" && (selectedFloor === "1F" || selectedFloor === "2F");
+  const hasLayout = buildingName === "High Throughput Building 高処理能力の建物" && (selectedFloor === "1F" || selectedFloor === "2F");
 
   // Scanner Functions
   const startScanner = async () => {
@@ -1044,17 +1043,17 @@ export default function FloorMapModal({ buildingName, onClose }) {
             if (success) {
               stopScanner();
               setShowScanner(false);
-              showNotification("✅ 資産が正常に検証されました！", "success");
+              showNotification("✅ 資産が正常に検証されました！", "success 成功");
             } else {
-              showNotification("❌ 資産コードが正しくありません", "error");
+              showNotification("❌ 資産コードが正しくありません", "error エラー");
             }
           }
         },
         () => { }
       );
     } catch (err) {
-      console.error("Scanner error:", err);
-      showNotification("カメラエラー - 権限を確認してください", "error");
+      console.error("Scanner error スキャナエラー:", err);
+      showNotification("カメラエラー - 権限を確認してください", "error エラー");
     }
   };
 
@@ -1066,7 +1065,7 @@ export default function FloorMapModal({ buildingName, onClose }) {
         }
         html5QrCodeRef.current.clear();
       } catch (e) {
-        console.error("Stop scanner error", e);
+        console.error("Stop scanner error スキャナー停止エラー", e);
       }
       html5QrCodeRef.current = null;
     }
@@ -1088,7 +1087,7 @@ export default function FloorMapModal({ buildingName, onClose }) {
     setShowScanner(true);
   };
 
-  const showNotification = (message, type = "info") => {
+  const showNotification = (message, type = "info 情報") => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 3000);
   };
@@ -1112,7 +1111,7 @@ export default function FloorMapModal({ buildingName, onClose }) {
         position_updated_at: new Date().toISOString()
       };
 
-      console.log('💾 Saving position:', {
+      console.log('💾 Saving position 位置の保存:', {
         assetId: asset.id,
         room: targetRoom.id,
         relative: { x: relativeX, y: relativeY }
@@ -1125,7 +1124,7 @@ export default function FloorMapModal({ buildingName, onClose }) {
         floor: selectedFloor
       });
 
-      console.log('✅ Position saved successfully');
+      console.log('✅ Position saved successfully ポジションが正常に保存されました');
 
       const updatedAsset = {
         ...asset,
@@ -1145,13 +1144,13 @@ export default function FloorMapModal({ buildingName, onClose }) {
 
       if (targetRoom.id !== asset.room) {
         setSelectedRoomId(targetRoom.id);
-        showNotification(`📦 ${asset.name} を ${targetRoom.name} に移動しました`, "success");
+        showNotification(`📦 ${asset.name} を ${targetRoom.name} に移動しました`, "success 成功");
       } else {
-        showNotification(`📍 ${asset.name} の位置を保存しました`, "success");
+        showNotification(`📍 ${asset.name} の位置を保存しました`, "success 成功");
       }
     } catch (error) {
-      console.error('❌ Error saving asset position:', error);
-      console.error('Error details:', error.response?.data);
+      console.error('❌ Error saving asset position アセットの位置を保存中にエラーが発生しました:', error);
+      console.error('Error details エラーの詳細:', error.response?.data);
       showNotification("❌ 位置の保存に失敗しました", "error");
       fetchAssets();
     }
@@ -1165,8 +1164,8 @@ export default function FloorMapModal({ buildingName, onClose }) {
       const response = await fetch(`${API_BASE_URL}/assets?building=${encodeURIComponent(buildingName)}`);
       const data = await response.json();
 
-      console.log('📥 Loaded assets:', data.length);
-      console.log('🔍 Sample positions:', data.slice(0, 3).map(a => ({
+      console.log('📥 Loaded assets ロードされたアセット:', data.length);
+      console.log('🔍 Sample positions サンプル位置:', data.slice(0, 3).map(a => ({
         id: a.id,
         name: a.name,
         manual_position: a.manual_position,
@@ -1182,7 +1181,7 @@ export default function FloorMapModal({ buildingName, onClose }) {
         setLoading(false);
       }
     } catch (err) {
-      console.error("❌ Error fetching assets:", err);
+      console.error("❌ Error fetching assets アセットの取得中にエラーが発生しました:", err);
       setLoading(false);
     }
   }, [buildingName, loading]);
@@ -1193,7 +1192,7 @@ export default function FloorMapModal({ buildingName, onClose }) {
 
   const handleManualRefresh = () => {
     fetchAssets();
-    showNotification("🔄 Positions updated", "success");
+    showNotification("🔄 Positions updated ポジションが更新されました", "success 成功");
   };
 
   const floors = useMemo(() => {
@@ -1573,8 +1572,8 @@ export default function FloorMapModal({ buildingName, onClose }) {
               </button>
 
               <div className="p-6 bg-gray-900 text-center">
-                <h3 className="text-xl font-bold text-white mb-2">Scan Asset Code</h3>
-                <p className="text-gray-400 text-sm">Align the QR code/barcode within the frame</p>
+                <h3 className="text-xl font-bold text-white mb-2">Scan Asset Code 資産コードのスキャン</h3>
+                <p className="text-gray-400 text-sm">Align the QR code/barcode within the frame QRコード/バーコードをフレーム内に揃える</p>
               </div>
 
               <div id="floor-qr-reader" className="bg-black w-full" style={{ minHeight: '300px' }}></div>

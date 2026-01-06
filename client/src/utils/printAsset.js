@@ -184,46 +184,46 @@ export const printAssetPDF = (asset) => {
       <div class="container">
         <!-- Primary Info -->
         <div class="card">
-          <div class="section-title">📦 Primary Information</div>
+          <div class="section-title">📦 Primary Information 一次情報</div>
           <div class="grid-4">
             <div class="field">
-              <div class="label">Asset Number</div>
+              <div class="label">Asset Number 資産番号</div>
               <div class="value large">${String(asset.id)}</div>
             </div>
             <div class="field">
-              <div class="label">Product Name</div>
+              <div class="label">Product Name 製品名</div>
               <div class="value large">${asset.name || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Management Loc.</div>
+              <div class="label">Management Location 管理場所</div>
               <div class="value">${asset.management_location || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">User (Wako)</div>
+              <div class="label">User ユーザー</div>
               <div class="value">${asset.user || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Building</div>
+              <div class="label">Building 建物</div>
               <div class="value">${asset.building || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Installation Loc.</div>
+              <div class="label">Installation Location 設置場所</div>
               <div class="value">${asset.installation_location || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Detailed Loc. (Room)</div>
+              <div class="label">Detailed Location (Room) 詳細な場所（部屋）</div>
               <div class="value">${asset.room || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Floor</div>
+              <div class="label">Floor 床</div>
               <div class="value">${asset.floor || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Install Status</div>
+              <div class="label">Install Status インストールステータス</div>
               <div class="value">${asset.status || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Inventory Status</div>
+              <div class="label">Inventory Status 在庫状況</div>
               <div class="value">
                 <span class="status-badge" style="background: ${asset.inventory_status === 'completed' ? '#d1fae5' : '#fef3c7'}">
                   ${asset.inventory_status === 'completed' ? 'COMPLETED' : 'PENDING'}
@@ -231,7 +231,7 @@ export const printAssetPDF = (asset) => {
               </div>
             </div>
              <div class="field">
-              <div class="label">QR Code Value</div>
+              <div class="label">QR Code Value QRコード値</div>
               <div class="value" style="font-family: monospace;">${asset.qr_code || '-'}</div>
             </div>
           </div>
@@ -240,36 +240,36 @@ export const printAssetPDF = (asset) => {
         <div class="row">
           <!-- Current Year Data -->
           <div class="col-half card">
-            <div class="section-title">📅 Current Year Data</div>
+            <div class="section-title">📅 Current Year Data 今年のデータ</div>
             <div class="grid-2">
               <div class="field">
                 <div class="label">Building</div>
                 <div class="value">${asset.building || '-'}</div>
               </div>
               <div class="field">
-                <div class="label">Install Loc.</div>
+                <div class="label">Install Location 設置場所</div>
                 <div class="value">${asset.installation_location || '-'}</div>
               </div>
               <div class="field">
-                <div class="label">Detail Loc.</div>
+                <div class="label">Detail Location 詳細な場所</div>
                 <div class="value">${asset.room || '-'}</div>
               </div>
               <div class="field">
-                <div class="label">Install Status</div>
+                <div class="label">Install Status インストールステータス</div>
                 <div class="value">${asset.status || '-'}</div>
               </div>
             </div>
             <div class="field" style="margin-top: 4px;">
-              <div class="label">Comment</div>
+              <div class="label">Comment コメント</div>
               <div class="value">${asset.notes || '-'}</div>
             </div>
             <div class="grid-2" style="margin-top: 2px;">
                <div class="field">
-                <div class="label">Label Reissue</div>
+                <div class="label">Label Reissue レーベルの再発</div>
                 <div class="value">${asset.label_reissue || '-'}</div>
               </div>
               <div class="field">
-                <div class="label">Reissue Reason</div>
+                <div class="label">Reissue Reason 再発行理由</div>
                 <div class="value">${asset.reissue_reason || '-'}</div>
               </div>
             </div>
@@ -277,31 +277,31 @@ export const printAssetPDF = (asset) => {
 
           <!-- Last Year Data -->
           <div class="col-half card">
-            <div class="section-title">📆 Last Year Data</div>
+            <div class="section-title">📆 Last Year Data 昨年のデータ</div>
             <div class="grid-2">
               <div class="field">
-                <div class="label">Investigator</div>
+                <div class="label">Investigator 捜査官</div>
                 <div class="value">${asset.last_year_investigator || '-'}</div>
               </div>
               <div class="field">
-                <div class="label">Building</div>
+                <div class="label">Building 建物</div>
                 <div class="value">${asset.last_year_building || '-'}</div>
               </div>
               <div class="field">
-                <div class="label">Install Loc.</div>
+                <div class="label">Install Location 設置場所</div>
                 <div class="value">${asset.last_year_installation_location || '-'}</div>
               </div>
               <div class="field">
-                <div class="label">Detail Loc.</div>
+                <div class="label">Detail Location 詳細な場所</div>
                 <div class="value">${asset.last_year_detailed_location || '-'}</div>
               </div>
               <div class="field">
-                <div class="label">Install Status</div>
+                <div class="label">Install Status インストールステータス</div>
                 <div class="value">${asset.last_year_installation_status || '-'}</div>
               </div>
             </div>
             <div class="field" style="margin-top: 4px;">
-              <div class="label">Comment</div>
+              <div class="label">Comment コメント</div>
               <div class="value">${asset.last_year_comment || '-'}</div>
             </div>
           </div>
@@ -309,22 +309,22 @@ export const printAssetPDF = (asset) => {
 
         <!-- Additional Info -->
         <div class="card">
-          <div class="section-title">📝 Additional Info</div>
+          <div class="section-title">📝 Additional Info 追加情報</div>
           <div class="grid-4">
             <div class="field">
-              <div class="label">Company Name</div>
+              <div class="label">Company Name 会社名</div>
               <div class="value">${asset.company_name || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Invoice Num</div>
+              <div class="label">Invoice Number 請求書番号</div>
               <div class="value">${asset.invoice_number || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Actual User</div>
+              <div class="label">Actual User 実際のユーザー</div>
               <div class="value">${asset.actual_user || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Parent ID</div>
+              <div class="label">Parent ID 親ID</div>
               <div class="value">${asset.parent_asset_id || '-'}</div>
             </div>
             <div class="field">
@@ -332,11 +332,11 @@ export const printAssetPDF = (asset) => {
               <div class="value">${asset.condition || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Type</div>
+              <div class="label">Type タイプ</div>
               <div class="value">${asset.type || '-'}</div>
             </div>
             <div class="field">
-              <div class="label">Last Updated</div>
+              <div class="label">Last Updated 最終更新日</div>
               <div class="value">${asset.last_updated ? new Date(asset.last_updated).toLocaleDateString() : '-'}</div>
             </div>
             <div class="field">
@@ -346,7 +346,7 @@ export const printAssetPDF = (asset) => {
           </div>
            ${asset.description ? `
           <div class="field" style="margin-top: 4px;">
-            <div class="label">Description</div>
+            <div class="label">Description 説明</div>
             <div class="value">${asset.description}</div>
           </div>
           ` : ''}
@@ -356,7 +356,7 @@ export const printAssetPDF = (asset) => {
       </div>
 
       <div class="footer">
-        Generated: ${new Date().toLocaleString('ja-JP')} | Asset ID: ${String(asset.id)}
+        Generated 生成された: ${new Date().toLocaleString('ja-JP')} | Asset ID アセットID: ${String(asset.id)}
       </div>
     </body>
     </html>

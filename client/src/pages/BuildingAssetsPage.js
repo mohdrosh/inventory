@@ -27,19 +27,19 @@ export default function BuildingAssetsPage() {
     fetchAssets();
   }, [decodedName]);
 
-  if (loading) return <div className="p-10 text-gray-500">Loading assets...</div>;
+  if (loading) return <div className="p-10 text-gray-500">Loading assets アセットのロード...</div>;
 
   if (!assets || assets.length === 0) {
     return (
       <div className="p-10 text-center text-gray-600">
         <h2 className="text-xl font-semibold mb-4">
-          Building not found or no assets available
+          Building not found or no assets available 建物が見つからないか、利用可能なアセットがありません
         </h2>
         <Link
           to="/"
           className="text-blue-600 hover:text-blue-800 font-medium underline"
         >
-          Go Back
+          Go Back 戻る
         </Link>
       </div>
     );
@@ -65,7 +65,7 @@ export default function BuildingAssetsPage() {
           {Object.entries(rooms).map(([room, roomAssets]) => (
             <div key={room} className="mb-6">
               <h3 className="text-lg text-gray-600 font-medium mb-3">
-                Room {room}
+                Room 部屋 {room}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {roomAssets.map((asset) => (
@@ -85,8 +85,8 @@ export default function BuildingAssetsPage() {
                       ID: {asset.id}
                     </div>
                     <div className="flex justify-between text-sm text-gray-600">
-                      <span>Type: {asset.type}</span>
-                      <span>Status: {asset.status}</span>
+                      <span>Type タイプ: {asset.type}</span>
+                      <span>Status 状態: {asset.status}</span>
                     </div>
                   </div>
                 ))}

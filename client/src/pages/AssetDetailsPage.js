@@ -133,7 +133,7 @@ export default function AssetDetailsPage() {
 
     try {
       await navigator.clipboard.writeText(textToCopy);
-      showNotification("📋 Asset number copied", "success");
+      showNotification("📋 Asset number copied コピーされた資産番号", "success 成功");
     } catch {
       try {
         const textarea = document.createElement("textarea");
@@ -146,9 +146,9 @@ export default function AssetDetailsPage() {
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
-        showNotification("📋 Asset number copied", "success");
+        showNotification("📋 Asset number copied コピーされた資産番号", "success 成功");
       } catch {
-        showNotification("Failed to copy asset number", "error");
+        showNotification("Failed to copy asset number 資産番号のコピーに失敗しました", "error エラー");
       }
     }
   };
@@ -199,7 +199,7 @@ export default function AssetDetailsPage() {
       }
     } catch (err) {
       console.error("Error fetching asset details:", err);
-      showNotification("Failed to load asset details", "error");
+      showNotification("Failed to load asset details アセットの詳細を読み込めませんでした", "error エラー");
     } finally {
       setLoading(false);
     }
@@ -211,19 +211,19 @@ export default function AssetDetailsPage() {
       const changedFields = [];
       const fieldLabels = {
         name: '品名 (Product Name)',
-        room: 'Room',
-        building: 'Building',
-        floor: 'Floor',
-        status: 'Status',
+        room: '部屋 Room',
+        building: '建物 Building',
+        floor: '床 Floor',
+        status: '状態 Status',
         user: '使用者 (User)',
         actual_user: '実際使用者 (Actual User)',
         management_location: '管理箇所 (Management Location)',
         company_name: '業者名 (Company Name)',
         invoice_number: '伝票番号 (Invoice Number)',
         installation_location: '設置場所 (Installation Location)',
-        parent_asset_id: 'Parent Asset',
-        description: 'Description',
-        notes: 'Notes',
+        parent_asset_id: '親資産 Parent Asset',
+        description: '説明 Description',
+        notes: '注意事項 Notes',
       };
 
       Object.keys(fieldLabels).forEach(key => {
@@ -285,15 +285,15 @@ export default function AssetDetailsPage() {
       console.log('Changed fields:', changedFields);
 
       if (changedFields.length === 0) {
-        showNotification("No changes to save", "info");
+        showNotification("No changes to save 保存する変更はありません", "info 情報");
         return;
       }
 
       const confirmed = await confirm({
-        title: "Save changes?",
-        message: "Do you want to save your changes to this asset?",
-        confirmText: "Save",
-        cancelText: "Cancel",
+        title: "Save changes 変更を保存する?",
+        message: "Do you want to save your changes to this asset このアセットへの変更を保存しますか？?",
+        confirmText: "Save 保存",
+        cancelText: "Cancel キャンセル",
       });
       if (!confirmed) return;
 
@@ -308,11 +308,11 @@ export default function AssetDetailsPage() {
       setAsset(response.data);
       setEditedAsset(response.data);
       setIsEditing(false);
-      showNotification(`Asset updated successfully (${changedFields.length} field(s) changed)`, "success");
+      showNotification(`Asset updated successfully アセットが正常に更新されました(${changedFields.length} field(s) changed) フィールドが変更されました`, "success 成功");
     } catch (err) {
       console.error("Error updating asset:", err);
-      const errorMessage = err.response?.data?.error || "Failed to update asset";
-      showNotification(errorMessage, "error");
+      const errorMessage = err.response?.data?.error || "Failed to update asset アセットの更新に失敗しました";
+      showNotification(errorMessage, "error エラー");
     } finally {
       setSaving(false);
     }
@@ -321,11 +321,11 @@ export default function AssetDetailsPage() {
   const handleCancel = async () => {
     if (isEditing) {
       const confirmed = await confirm({
-        title: "Discard Changes?",
-        message: "You have unsaved changes. Are you sure you want to discard them?",
-        confirmText: "Discard",
-        cancelText: "Keep Editing",
-        confirmVariant: "danger",
+        title: "Discard Changes 変更の破棄?",
+        message: "You have unsaved changes. Are you sure you want to discard them 保存されていない変更があります。破棄してもよろしいですか?",
+        confirmText: "Discard 破棄",
+        cancelText: "Keep Editing 編集を続ける",
+        confirmVariant: "danger 危険",
       });
       if (!confirmed) return;
     }
@@ -348,11 +348,11 @@ export default function AssetDetailsPage() {
         e.preventDefault();
 
         const confirmed = await confirm({
-          title: "Discard Changes?",
-          message: "You have unsaved changes. Are you sure you want to leave?",
-          confirmText: "Leave",
-          cancelText: "Stay",
-          confirmVariant: "danger",
+          title: "Discard Changes 変更の破棄?",
+          message: "You have unsaved changes. Are you sure you want to leave 変更が保存されていません。終了してもよろしいですか？?",
+          confirmText: "Leave 離れる",
+          cancelText: "Stay 滞在する",
+          confirmVariant: "danger 危険",
         });
 
         if (confirmed) {
@@ -381,28 +381,28 @@ export default function AssetDetailsPage() {
   const handleInventoryComplete = async () => {
     try {
       const confirmed = await confirm({
-        title: "Inventory complete?",
-        message: "Mark inventory as complete for this asset?",
-        confirmText: "Confirm",
-        cancelText: "Cancel",
+        title: "Inventory complete 在庫完了?",
+        message: "Mark inventory as complete for this asset? この資産の在庫を完了としてマークする",
+        confirmText: "Confirm 確認する",
+        cancelText: "Cancel キャンセル",
       });
       if (!confirmed) return;
 
       setSaving(true);
       const updateData = {
-        inventory_status: 'completed',
+        inventory_status: 'completed 完成した',
         inventory_date: new Date().toISOString()
       };
       console.log('Updating inventory for asset:', assetId, updateData);
       const response = await axios.put(`${API_BASE_URL}/assets/${assetId}`, updateData);
       console.log('Inventory update response:', response.data);
-      setInventoryStatus('completed');
-      setAsset({ ...asset, inventory_status: 'completed', inventory_date: new Date().toISOString() });
-      showNotification("✅ Inventory completed!", "success");
+      setInventoryStatus('completed 完成した');
+      setAsset({ ...asset, inventory_status: 'completed 完成した', inventory_date: new Date().toISOString() });
+      showNotification("✅ Inventory completed 在庫完了!", "success 成功");
     } catch (err) {
       console.error("Error updating inventory:", err);
       const errorMessage = err.response?.data?.error || "Failed to update inventory";
-      showNotification(errorMessage, "error");
+      showNotification(errorMessage, "error エラー");
     } finally {
       setSaving(false);
     }
@@ -412,29 +412,29 @@ export default function AssetDetailsPage() {
   const handleUndoInventory = async () => {
     try {
       const confirmed = await confirm({
-        title: "Undo inventory?",
-        message: "Set inventory status back to pending?",
-        confirmText: "Undo",
-        cancelText: "Cancel",
-        confirmVariant: "danger",
+        title: "Undo inventory インベントリを元に戻す?",
+        message: "Set inventory status back to pending 在庫ステータスを保留に戻す?",
+        confirmText: "Undo 元に戻す",
+        cancelText: "Cancel キャンセル",
+        confirmVariant: "danger 危険",
       });
       if (!confirmed) return;
 
       setSaving(true);
       const updateData = {
-        inventory_status: 'pending',
+        inventory_status: 'pending 保留中',
         inventory_date: null
       };
       console.log('Undoing inventory for asset:', assetId, updateData);
       const response = await axios.put(`${API_BASE_URL}/assets/${assetId}`, updateData);
       console.log('Undo inventory response:', response.data);
-      setInventoryStatus('pending');
-      setAsset({ ...asset, inventory_status: 'pending', inventory_date: null });
-      showNotification("↩️ Inventory status reset", "info");
+      setInventoryStatus('pending 保留中');
+      setAsset({ ...asset, inventory_status: 'pending 保留中', inventory_date: null });
+      showNotification("↩️ Inventory status reset 在庫状況リセット", "info 情報");
     } catch (err) {
-      console.error("Error undoing inventory:", err);
-      const errorMessage = err.response?.data?.error || "Failed to undo inventory";
-      showNotification(errorMessage, "error");
+      console.error("Error undoing inventory 在庫を元に戻す際にエラーが発生しました:", err);
+      const errorMessage = err.response?.data?.error || "Failed to undo inventory 在庫を元に戻すことができませんでした";
+      showNotification(errorMessage, "error エラー");
     } finally {
       setSaving(false);
     }
@@ -490,7 +490,7 @@ export default function AssetDetailsPage() {
     const photosHtml = selectedPhotos.length > 0
       ? `
         <div class="photos-section">
-          <h2>📷 Asset Photos (Selected)</h2>
+          <h2>📷 Asset Photos (Selected) アセット写真（選択済み）</h2>
           <div class="photos-grid">
             ${selectedPhotos.map((item, idx) => `
               <div class="photo-item">
@@ -606,10 +606,10 @@ export default function AssetDetailsPage() {
               <div class="value">${asset.status || 'N/A'}</div>
             </div>
             <div class="section">
-              <div class="label">Inventory Status</div>
+              <div class="label">Inventory Status 在庫状況</div>
               <div class="value">
-                <span class="status-badge ${asset.inventory_status === 'completed' ? 'status-completed' : 'status-pending'}">
-                  ${asset.inventory_status === 'completed' ? '✓ Completed' : '○ Pending'}
+                <span class="status-badge ${asset.inventory_status === 'completed 完成した' ? 'status-completed ステータス完了' : 'status-pending ステータス保留中'}">
+                  ${asset.inventory_status === 'completed 完成した' ? '✓ Completed 完了しました' : '○ Pending 保留中'}
                 </span>
               </div>
             </div>
@@ -737,7 +737,7 @@ export default function AssetDetailsPage() {
         <div class="card">
           <div class="grid-3">
             <div class="section">
-              <div class="label">Created Date</div>
+              <div class="label">Created Date 作成日</div>
               <div class="value">${asset.created_at ? new Date(asset.created_at).toLocaleString('ja-JP') : 'N/A'}</div>
             </div>
             <div class="section">
@@ -745,7 +745,7 @@ export default function AssetDetailsPage() {
               <div class="value">${asset.last_updated ? new Date(asset.last_updated).toLocaleString('ja-JP') : 'N/A'}</div>
             </div>
             <div class="section">
-              <div class="label">Inventory Completed</div>
+              <div class="label">Inventory Completed 在庫完了</div>
               <div class="value">${asset.inventory_completed_at ? new Date(asset.inventory_completed_at).toLocaleString('ja-JP') : 'Not yet'}</div>
             </div>
           </div>
@@ -754,8 +754,8 @@ export default function AssetDetailsPage() {
         ${photosHtml}
 
         <div class="footer">
-          <p>Generated: ${new Date().toLocaleString('ja-JP')} | SPring-8 Asset Management System</p>
-          <p>Asset ID: ${String(asset.id)} | Document for official use only</p>
+          <p>Generated 生成された: ${new Date().toLocaleString('ja-JP')} | SPring-8 Asset Management System 資産管理システム</p>
+          <p>Asset ID アセットID: ${String(asset.id)} | Document for official use only 公式使用のみの文書</p>
         </div>
       </body>
       </html>
@@ -783,13 +783,13 @@ export default function AssetDetailsPage() {
   const handleDownloadData = (format = 'text') => {
     const data = {
       assetNumber: String(asset.id),
-      invoiceNumber: asset.invoice_number || "To be configured",
-      managementLocation: asset.management_location || "To be configured",
+      invoiceNumber: asset.invoice_number || "To be configured 設定対象",
+      managementLocation: asset.management_location || "To be configured 設定対象",
       productName: toFullWidth(asset.name),
-      companyName: asset.company_name || "To be configured",
-      qrCode: asset.qr_code || "To be generated",
-      userName: asset.user || "To be configured",
-      actualUserName: asset.actual_user || "To be configured",
+      companyName: asset.company_name || "To be configured 設定対象",
+      qrCode: asset.qr_code || "To be generated 生成される",
+      userName: asset.user || "To be configured 設定対象",
+      actualUserName: asset.actual_user || "To be configured 設定対象",
       installationLocation: asset.installation_location || `${toFullWidth(asset.building)} ${asset.floor} Room ${asset.room}`,
       parentAssetId: asset.parent_asset_id || "None",
       building: toFullWidth(asset.building),
@@ -878,7 +878,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
     a.click();
     URL.revokeObjectURL(url);
     setShowDownloadOptions(false);
-    showNotification(`Asset data downloaded as ${format.toUpperCase()}`, "success");
+    showNotification(`Asset data downloaded as アセットデータを次のようにダウンロード ${format.toUpperCase()}`, "success 成功");
   };
 
   // Handle Photo Delete
@@ -892,7 +892,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
         data: { imageUrl }
       });
 
-      showNotification("🗑️ Image deleted successfully", "success");
+      showNotification("🗑️ Image deleted successfully 画像は正常に削除されました", "success 成功");
 
       // Reset to first image after deletion
       setSelectedImageIndex(0);
@@ -902,7 +902,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
     } catch (err) {
       console.error("Error deleting image:", err);
       const errorMessage = err.response?.data?.error || "Failed to delete image";
-      showNotification(errorMessage, "error");
+      showNotification(errorMessage, "error エラー");
     } finally {
       setDeleting(false);
     }
@@ -913,11 +913,11 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
     if (deleting) return;
 
     const confirmed = await confirm({
-      title: "Delete photo?",
-      message: "Are you sure you want to delete this photo? This action cannot be undone.",
-      confirmText: "Delete",
-      cancelText: "Cancel",
-      confirmVariant: "danger",
+      title: "Delete photo 写真を削除?",
+      message: "Are you sure you want to delete this photo? This action cannot be undone この写真を削除してもよろしいですか？この操作は元に戻せません.",
+      confirmText: "Delete 消去",
+      cancelText: "Cancel キャンセル",
+      confirmVariant: "danger 危険",
       body: (
         <div className="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
           <img
@@ -959,7 +959,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
         minute: '2-digit'
       });
 
-      showNotification(`📸 ${photoTypes.find(t => t.id === selectedPhotoType)?.label || 'Photo'} uploaded at ${uploadTime}`, "success");
+      showNotification(`📸 ${photoTypes.find(t => t.id === selectedPhotoType)?.label || 'Photo 写真'} uploaded at にアップロードされました ${uploadTime}`, "success 成功");
       setShowPhotoUpload(false);
 
       // Refresh asset to get new image
@@ -967,7 +967,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
     } catch (err) {
       console.error("Error uploading photo:", err);
       const errorMessage = err.response?.data?.error || "Failed to upload photo";
-      showNotification(errorMessage, "error");
+      showNotification(errorMessage, "error エラー");
     } finally {
       setUploading(false);
     }
@@ -1119,7 +1119,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
       fetchAssetDetails();
     } catch (err) {
       console.error("Error uploading captured photo:", err);
-      showNotification("Failed to upload photo", "error");
+      showNotification("Failed to upload photo 写真のアップロードに失敗しました", "error エラー");
     } finally {
       setUploading(false);
     }
@@ -1130,7 +1130,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
       <div className="flex items-center justify-center h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
         <div className="text-center">
           <Loader2 className="w-16 h-16 text-indigo-600 animate-spin mx-auto mb-4" />
-          <p className="text-gray-700 text-lg font-semibold">Loading asset details...</p>
+          <p className="text-gray-700 text-lg font-semibold">Loading asset details アセットの詳細をロードしています...</p>
         </div>
       </div>
     );
@@ -1141,14 +1141,14 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
       <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4">
         <div className="bg-white rounded-3xl shadow-2xl p-12 text-center max-w-md border border-gray-100">
           <AlertCircle className="w-20 h-20 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Asset Not Found</h2>
-          <p className="text-gray-600 mb-6">The asset you're looking for doesn't exist.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Asset Not Found アセットが見つかりません</h2>
+          <p className="text-gray-600 mb-6">The asset you're looking for doesn't exist 探している資産は存在しません.</p>
           <button
             onClick={() => navigate(-1)}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-lg"
           >
             <ArrowLeft className="w-5 h-5" />
-            Go Back
+            Go Back 戻る
           </button>
         </div>
       </div>
@@ -1212,7 +1212,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                 e.stopPropagation();
                 requestDeleteImage(displayImages[selectedImageIndex]);
               }}
-              title="Delete this image"
+              title="Delete this image この画像を削除"
             >
               <Trash2 className="w-5 h-5 text-white" />
             </button>
@@ -1335,7 +1335,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                   <div className="flex flex-col items-center gap-2 text-indigo-600">
                     <Camera className="w-8 h-8" />
                     <span className="text-sm font-medium">カメラで撮影</span>
-                    <span className="text-sm text-indigo-400">Take Photo</span>
+                    <span className="text-sm text-indigo-400">Take Photo 写真を撮る</span>
                   </div>
                 </button>
 
@@ -1344,7 +1344,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                   <div className="flex flex-col items-center gap-2 text-gray-600">
                     <Image className="w-8 h-8" />
                     <span className="text-sm font-medium">ギャラリーから</span>
-                    <span className="text-sm text-gray-400">From Gallery</span>
+                    <span className="text-sm text-gray-400">From Gallery ギャラリーから</span>
                   </div>
                   <input
                     type="file"
@@ -1364,13 +1364,13 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
 
               <div className="bg-blue-50 rounded-lg p-3 text-sm text-blue-700">
                 <p className="font-medium mb-1">📸 撮影日時は自動記録されます</p>
-                <p className="text-blue-600">Photo timestamp will be recorded automatically</p>
+                <p className="text-blue-600">Photo timestamp will be recorded automatically 写真のタイムスタンプは自動的に記録されます</p>
               </div>
 
               {uploading && (
                 <div className="flex items-center justify-center gap-2 text-indigo-600">
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  <span className="text-sm font-medium">Uploading...</span>
+                  <span className="text-sm font-medium">Uploading アップロード中...</span>
                 </div>
               )}
             </div>
@@ -1474,11 +1474,11 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                 className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-semibold group"
               >
                 <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                <span className="hidden sm:inline">Back</span>
+                <span className="hidden sm:inline">Back 戻る</span>
               </button>
               <div className="h-8 w-px bg-gray-300"></div>
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Asset Details</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Asset Details 資産の詳細</h1>
                 <p className="text-sm text-gray-600 mt-0.5">{toFullWidth(asset.building)}</p>
               </div>
             </div>
@@ -1492,7 +1492,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                       className="flex items-center gap-2 px-4 py-2 bg-orange-100 hover:bg-orange-200 text-orange-700 rounded-lg font-medium transition-all shadow-sm disabled:opacity-50"
                     >
                       <RotateCcw className="w-4 h-4" />
-                      <span className="hidden sm:inline">Undo Inventory</span>
+                      <span className="hidden sm:inline">Undo Inventory インベントリを元に戻す</span>
                     </button>
                   ) : (
                     <button
@@ -1501,7 +1501,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                       className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-all shadow-sm disabled:opacity-50"
                     >
                       <CheckCircle2 className="w-4 h-4" />
-                      <span className="hidden sm:inline">{saving ? 'Updating...' : 'Inventory Complete'}</span>
+                      <span className="hidden sm:inline">{saving ? 'Updating 更新中...' : 'Inventory Complete 在庫完了'}</span>
                     </button>
                   )}
                   <button
@@ -1509,7 +1509,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                     className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-all shadow-sm"
                   >
                     <Printer className="w-4 h-4" />
-                    <span className="hidden sm:inline">Print PDF</span>
+                    <span className="hidden sm:inline">Print PDF PDFを印刷する</span>
                   </button>
                   {/* Download button with format dropdown */}
                   <div className="relative">
@@ -1518,7 +1518,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                       className="flex items-center gap-2 px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg font-medium transition-all shadow-sm"
                     >
                       <Download className="w-4 h-4" />
-                      <span className="hidden sm:inline">Download</span>
+                      <span className="hidden sm:inline">Download ダウンロード</span>
                     </button>
                     {showDownloadMenu && (
                       <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
@@ -1556,7 +1556,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                     className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-all shadow-sm disabled:opacity-50"
                   >
                     <X className="w-4 h-4" />
-                    <span className="hidden sm:inline">Cancel</span>
+                    <span className="hidden sm:inline">Cancel キャンセル</span>
                   </button>
                   <button
                     onClick={handleSave}
@@ -1566,12 +1566,12 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                     {saving ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span className="hidden sm:inline">Saving...</span>
+                        <span className="hidden sm:inline">Saving 保存...</span>
                       </>
                     ) : (
                       <>
                         <Save className="w-4 h-4" />
-                        <span className="hidden sm:inline">Save</span>
+                        <span className="hidden sm:inline">Save 保存</span>
                       </>
                     )}
                   </button>
@@ -1582,7 +1582,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                   className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-medium transition-all shadow-sm"
                 >
                   <Edit className="w-4 h-4" />
-                  <span className="hidden sm:inline">Edit</span>
+                  <span className="hidden sm:inline">Edit 編集</span>
                 </button>
               )}
             </div>
@@ -1660,7 +1660,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                         <span className="bg-black/50 text-white px-3 py-1.5 rounded-full text-sm font-medium">
-                          Click to zoom
+                          Click to zoom クリックしてズーム
                         </span>
                       </div>
                     </div>
@@ -1681,19 +1681,19 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                 <div className="bg-white rounded-lg shadow border border-gray-200 p-2">
                   <div className="flex items-center gap-1 mb-2">
                     <MapPin className="w-3 h-3 text-indigo-600" />
-                    <p className="text-sm font-bold text-gray-700">Location</p>
+                    <p className="text-sm font-bold text-gray-700">Location 位置</p>
                   </div>
                   <div className="space-y-1 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Building:</span>
+                      <span className="text-gray-600">Building 建物:</span>
                       <span className="font-semibold text-gray-900">{toFullWidth(asset.building) || ''}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Floor:</span>
+                      <span className="text-gray-600">Floor 床:</span>
                       <span className="font-semibold text-gray-900">{asset.floor || ''}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Room:</span>
+                      <span className="text-gray-600">Room 部屋:</span>
                       <span className="font-semibold text-gray-900">{asset.room || ''}</span>
                     </div>
                   </div>
@@ -1714,7 +1714,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                       )}
                     </div>
                     <div className="flex-1">
-                      <p className="text-xs text-gray-500 mb-1">Scan to view asset</p>
+                      <p className="text-xs text-gray-500 mb-1">Scan to view asset スキャンしてアセットを表示</p>
                       <p className="text-sm text-gray-700 font-mono break-all">{asset.qr_code || asset.id}</p>
                     </div>
                   </div>
@@ -1735,16 +1735,16 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                     {changeHistory.length === 0 ? (
                       <>
                         <div className="bg-white rounded p-1.5 border border-yellow-100 opacity-60">
-                          <p className="text-[9px] text-gray-400 mb-0.5">No change #1</p>
-                          <p className="text-sm text-gray-500 italic">Changes will appear here after edits</p>
+                          <p className="text-[9px] text-gray-400 mb-0.5">No change #1 変化なし #1</p>
+                          <p className="text-sm text-gray-500 italic">Changes will appear here after edits 編集後、変更内容がここに表示されます</p>
                         </div>
                         <div className="bg-white rounded p-1.5 border border-yellow-100 opacity-40">
-                          <p className="text-[9px] text-gray-400 mb-0.5">No change #2</p>
-                          <p className="text-sm text-gray-500 italic">History will appear here</p>
+                          <p className="text-[9px] text-gray-400 mb-0.5">No change #2 変化なし #2</p>
+                          <p className="text-sm text-gray-500 italic">History will appear here ここに履歴が表示されます</p>
                         </div>
                         <div className="bg-white rounded p-1.5 border border-yellow-100 opacity-30">
-                          <p className="text-[9px] text-gray-400 mb-0.5">No change #3</p>
-                          <p className="text-sm text-gray-500 italic">History will appear here</p>
+                          <p className="text-[9px] text-gray-400 mb-0.5">No change #3 変化なし #3</p>
+                          <p className="text-sm text-gray-500 italic">History will appear here ここに履歴が表示されます</p>
                         </div>
                       </>
                     ) : (
@@ -1764,7 +1764,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                             <div className="flex items-center justify-between mb-0.5">
                               <p className="text-sm text-gray-500">{dateStr}</p>
                               {i === 0 && (
-                                <span className="text-[8px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Latest</span>
+                                <span className="text-[8px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-semibold">Latest 最新</span>
                               )}
                               {i > 0 && (
                                 <span className="text-[8px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-full">#{i + 1}</span>
@@ -1927,7 +1927,7 @@ Last Updated:        ${data.lastUpdated || 'N/A'}
                           )}
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm text-gray-600 mb-0.5">Scan to view asset</p>
+                          <p className="text-sm text-gray-600 mb-0.5">Scan to view asset スキャンしてアセットを表示</p>
                           <p className="text-[9px] text-gray-500 font-mono">{asset.qr_code || ''}</p>
                         </div>
                       </div>

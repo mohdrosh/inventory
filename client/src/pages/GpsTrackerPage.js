@@ -199,9 +199,9 @@ const GpsTrackerPage = () => {
         <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Navigation className="w-8 h-8 text-blue-400" />
-            <h1 className="text-2xl font-bold text-white">GPS Tracker</h1>
+            <h1 className="text-2xl font-bold text-white">GPS Tracker GPSトラッカー</h1>
           </div>
-          <p className="text-gray-400 text-sm">Track asset location in real-time</p>
+          <p className="text-gray-400 text-sm">Track asset location in real-time 資産の位置をリアルタイムで追跡</p>
         </div>
 
         {/* Server Status */}
@@ -218,7 +218,7 @@ const GpsTrackerPage = () => {
 
         {/* Asset Selection */}
         <div className="bg-gray-800/50 rounded-xl p-4 mb-4 border border-gray-700">
-          <label className="block text-sm text-gray-400 mb-2">Select Asset to Track</label>
+          <label className="block text-sm text-gray-400 mb-2">Select Asset to Track 追跡するアセットの選択</label>
           
           <input
             type="text"
@@ -262,7 +262,7 @@ const GpsTrackerPage = () => {
 
         {/* Update Interval */}
         <div className="bg-gray-800/50 rounded-xl p-4 mb-4 border border-gray-700">
-          <label className="block text-sm text-gray-400 mb-2">Update Interval</label>
+          <label className="block text-sm text-gray-400 mb-2">Update Interval 更新間隔</label>
           <div className="flex gap-2">
             {[1000, 2000, 5000, 10000].map(interval => (
               <button
@@ -285,11 +285,11 @@ const GpsTrackerPage = () => {
           <div className="bg-gray-800/50 rounded-xl p-4 mb-4 border border-gray-700">
             <div className="flex items-center gap-2 mb-3">
               <MapPin className="w-5 h-5 text-green-400" />
-              <span className="text-sm text-gray-400">Current Position</span>
+              <span className="text-sm text-gray-400">Current Position 現在の位置</span>
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div>
-                <div className="text-gray-500">Latitude</div>
+                <div className="text-gray-500">Latitude 緯度</div>
                 <div className="text-white font-mono">{currentPosition.latitude.toFixed(6)}</div>
               </div>
               <div>
@@ -297,17 +297,17 @@ const GpsTrackerPage = () => {
                 <div className="text-white font-mono">{currentPosition.longitude.toFixed(6)}</div>
               </div>
               <div>
-                <div className="text-gray-500">Accuracy</div>
+                <div className="text-gray-500">Accuracy 正確さ</div>
                 <div className="text-white font-mono">{currentPosition.accuracy?.toFixed(1)}m</div>
               </div>
               <div>
-                <div className="text-gray-500">Updates Sent</div>
+                <div className="text-gray-500">Updates Sent 送信されたアップデート</div>
                 <div className="text-white font-mono">{updateCount}</div>
               </div>
             </div>
             {lastUpdateTime && (
               <div className="mt-2 text-xs text-gray-500">
-                Last sent: {lastUpdateTime.toLocaleTimeString()}
+                Last sent 最後に送信されました: {lastUpdateTime.toLocaleTimeString()}
               </div>
             )}
           </div>
@@ -330,7 +330,7 @@ const GpsTrackerPage = () => {
               className="flex-1 flex items-center justify-center gap-2 py-4 bg-green-600 hover:bg-green-700 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-xl font-medium transition"
             >
               <Play className="w-5 h-5" />
-              Start Tracking
+              Start Tracking 追跡を開始する
             </button>
           ) : (
             <>
@@ -339,14 +339,14 @@ const GpsTrackerPage = () => {
                 className="flex-1 flex items-center justify-center gap-2 py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition"
               >
                 <Square className="w-5 h-5" />
-                Stop
+                Stop 停止
               </button>
               <button
                 onClick={sendNow}
                 className="flex items-center justify-center gap-2 py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition"
               >
                 <RefreshCw className="w-5 h-5" />
-                Send Now
+                Send Now 今すぐ送信
               </button>
             </>
           )}
@@ -356,19 +356,19 @@ const GpsTrackerPage = () => {
         {isTracking && (
           <div className="mt-4 flex items-center justify-center gap-2 text-green-400">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-sm">Tracking active - GPS updates every {updateInterval/1000}s</span>
+            <span className="text-sm">Tracking active - GPS updates every 追跡有効 - GPS更新間隔 {updateInterval/1000}s</span>
           </div>
         )}
 
         {/* Instructions */}
         <div className="mt-6 bg-gray-800/30 rounded-xl p-4 border border-gray-700">
-          <h3 className="text-white font-medium mb-2">How to use:</h3>
+          <h3 className="text-white font-medium mb-2">How to use 使用方法:</h3>
           <ol className="text-sm text-gray-400 space-y-1 list-decimal list-inside">
-            <li>Select an asset you want to track</li>
-            <li>Choose how often to send updates</li>
-            <li>Tap "Start Tracking" and allow GPS access</li>
-            <li>Walk around - the floor map will update in real-time!</li>
-            <li>Open the floor map on another device to see movement</li>
+            <li>Select an asset you want to track 追跡したい資産を選択してください</li>
+            <li>Choose how often to send updates 更新を送信する頻度を選択する</li>
+            <li>Tap "Start Tracking" and allow GPS access 「追跡を開始」をタップしてGPSアクセスを許可します</li>
+            <li>Walk around - the floor map will update in real-time 歩き回ってください - フロアマップはリアルタイムで更新されます!</li>
+            <li>Open the floor map on another device to see movement 別のデバイスでフロアマップを開いて動きを確認します</li>
           </ol>
         </div>
       </div>
